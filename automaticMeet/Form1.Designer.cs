@@ -37,16 +37,16 @@ namespace automaticMeet
             this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.radioButton9 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.radioButton9 = new System.Windows.Forms.RadioButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -56,7 +56,7 @@ namespace automaticMeet
             // 
             this.radioButton3.AutoSize = true;
             this.radioButton3.Location = new System.Drawing.Point(12, 34);
-            this.radioButton3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton3.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(70, 28);
             this.radioButton3.TabIndex = 0;
@@ -68,7 +68,7 @@ namespace automaticMeet
             // 
             this.radioButton4.AutoSize = true;
             this.radioButton4.Location = new System.Drawing.Point(94, 34);
-            this.radioButton4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton4.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(70, 28);
             this.radioButton4.TabIndex = 1;
@@ -80,7 +80,7 @@ namespace automaticMeet
             // 
             this.radioButton5.AutoSize = true;
             this.radioButton5.Location = new System.Drawing.Point(176, 34);
-            this.radioButton5.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton5.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton5.Name = "radioButton5";
             this.radioButton5.Size = new System.Drawing.Size(70, 28);
             this.radioButton5.TabIndex = 2;
@@ -92,7 +92,7 @@ namespace automaticMeet
             // 
             this.radioButton6.AutoSize = true;
             this.radioButton6.Location = new System.Drawing.Point(261, 34);
-            this.radioButton6.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton6.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton6.Name = "radioButton6";
             this.radioButton6.Size = new System.Drawing.Size(70, 28);
             this.radioButton6.TabIndex = 3;
@@ -104,7 +104,7 @@ namespace automaticMeet
             // 
             this.radioButton7.AutoSize = true;
             this.radioButton7.Location = new System.Drawing.Point(12, 74);
-            this.radioButton7.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton7.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton7.Name = "radioButton7";
             this.radioButton7.Size = new System.Drawing.Size(70, 28);
             this.radioButton7.TabIndex = 4;
@@ -116,7 +116,7 @@ namespace automaticMeet
             // 
             this.radioButton8.AutoSize = true;
             this.radioButton8.Location = new System.Drawing.Point(94, 74);
-            this.radioButton8.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton8.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton8.Name = "radioButton8";
             this.radioButton8.Size = new System.Drawing.Size(70, 28);
             this.radioButton8.TabIndex = 5;
@@ -127,7 +127,7 @@ namespace automaticMeet
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(204, 307);
-            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(185, 74);
             this.button1.TabIndex = 6;
@@ -146,13 +146,32 @@ namespace automaticMeet
             this.groupBox1.Controls.Add(this.radioButton4);
             this.groupBox1.Controls.Add(this.radioButton6);
             this.groupBox1.Location = new System.Drawing.Point(15, 141);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6);
             this.groupBox1.Size = new System.Drawing.Size(374, 154);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Collegati:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(175, 113);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(190, 29);
+            this.textBox2.TabIndex = 12;
+            // 
+            // radioButton9
+            // 
+            this.radioButton9.AutoSize = true;
+            this.radioButton9.Location = new System.Drawing.Point(12, 114);
+            this.radioButton9.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButton9.Name = "radioButton9";
+            this.radioButton9.Size = new System.Drawing.Size(154, 28);
+            this.radioButton9.TabIndex = 6;
+            this.radioButton9.TabStop = true;
+            this.radioButton9.Text = "Personalizzato:";
+            this.radioButton9.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -207,17 +226,12 @@ namespace automaticMeet
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Classe:";
             // 
-            // radioButton1
+            // textBox1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(12, 34);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(6);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(61, 28);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "3finf";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(175, 73);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(190, 29);
+            this.textBox1.TabIndex = 11;
             // 
             // radioButton2
             // 
@@ -231,31 +245,17 @@ namespace automaticMeet
             this.radioButton2.Text = "Personalizzato:";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // radioButton1
             // 
-            this.textBox1.Location = new System.Drawing.Point(175, 73);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 29);
-            this.textBox1.TabIndex = 11;
-            // 
-            // radioButton9
-            // 
-            this.radioButton9.AutoSize = true;
-            this.radioButton9.Location = new System.Drawing.Point(12, 114);
-            this.radioButton9.Margin = new System.Windows.Forms.Padding(6);
-            this.radioButton9.Name = "radioButton9";
-            this.radioButton9.Size = new System.Drawing.Size(154, 28);
-            this.radioButton9.TabIndex = 6;
-            this.radioButton9.TabStop = true;
-            this.radioButton9.Text = "Personalizzato:";
-            this.radioButton9.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(175, 113);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(190, 29);
-            this.textBox2.TabIndex = 12;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(12, 34);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(61, 28);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "3finf";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -269,9 +269,9 @@ namespace automaticMeet
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
-            this.Text = "Automatic Meet v1.1";
+            this.Text = "Automatic Meet v1.2";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

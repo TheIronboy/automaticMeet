@@ -74,15 +74,13 @@ namespace automaticMeet
                         {
                             SendKeys.Send(classe);
                             SendKeys.Send("{Enter}");
-                            System.Threading.Thread.Sleep(5000);
-                            SendKeys.Send("^D");
-                            SendKeys.Send("^E");
-                            System.Threading.Thread.Sleep(1000);
-                            SendKeys.Send("{Enter}");
-                            System.Threading.Thread.Sleep(120000);
+                            System.Threading.Thread.Sleep(60000);
                         }
 
-                        MessageBox.Show("Tentativi terminati.");
+                        SendKeys.Send("^E");
+                        SendKeys.Send("^D");
+
+                        MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
                     }
                 }
             }
