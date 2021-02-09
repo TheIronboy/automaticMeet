@@ -75,10 +75,11 @@ namespace automaticMeet
 
                     if (start == true)
                     {
-                        for (int i = 0; i <= 5; i++)
+                        for (int i = 1; i <= 10; i++)
                         {
+                            System.Threading.Thread.Sleep(1000);
                             SendKeys.Send("^{ESC}");
-                            System.Threading.Thread.Sleep(2000);
+                            System.Threading.Thread.Sleep(1000);
 
                             SendKeys.Send("chrome");
                             SendKeys.Send("{Enter}");
@@ -86,7 +87,7 @@ namespace automaticMeet
 
                             SendKeys.Send(url);
                             SendKeys.Send("{Enter}");
-                            System.Threading.Thread.Sleep(2000);
+                            System.Threading.Thread.Sleep(3000);
 
                             SendKeys.Send(classe);
                             SendKeys.Send("{Enter}");
@@ -94,13 +95,12 @@ namespace automaticMeet
 
                             SendKeys.Send("^e");
                             SendKeys.Send("^d");
-                            System.Threading.Thread.Sleep(2000);
+                            System.Threading.Thread.Sleep(1000);
 
                             LeftMouseClick(1250, 600);
-                            System.Threading.Thread.Sleep(120000);
+                            System.Threading.Thread.Sleep(60000);
 
                             SendKeys.Send("%{F4}");
-                            System.Threading.Thread.Sleep(2000);
                         }
 
                         MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
