@@ -29,7 +29,8 @@ namespace automaticMeet
 
         public async void button1_Click(object sender, EventArgs e)
         {
-            string classe = "", url = "";
+            string classe = "", url = "", messaggio = "";
+            int minuti = 0, volte = 0;
             bool start = true;
 
             if (button1.Text == "STOP")
@@ -39,7 +40,15 @@ namespace automaticMeet
                 if (radioButton1.Checked == true)
                     classe = "3finf";
                 else if (radioButton2.Checked == true)
-                    classe = textBox1.Text;
+                {
+                    if (textBox1.Text != "")
+                        classe = textBox1.Text;
+                    else
+                    {
+                        start = false;
+                        MessageBox.Show("Inserisci una classe.");
+                    }
+                }
                 else
                 {
                     start = false;
@@ -61,7 +70,17 @@ namespace automaticMeet
                     else if (radioButton8.Checked == true)
                         classe += "-6";
                     else if (radioButton9.Checked == true)
-                        classe += textBox2.Text;
+                        start = true;
+                    else if (radioButton10.Checked == true)
+                    {
+                        if (textBox2.Text != "")
+                            classe += textBox2.Text;
+                        else
+                        {
+                            start = false;
+                            MessageBox.Show("Inserisci un'ora.");
+                        }
+                    }
                     else
                     {
                         start = false;
@@ -70,48 +89,94 @@ namespace automaticMeet
 
                     if (start == true)
                     {
-                        if (textBox3.Text != "")
-                            url = "https://meet.google.com/?authuser=" + textBox3.Text;
+                        if (textBox3.Text != "" && textBox4.Text != "")
+                        {
+                            minuti = Convert.ToInt32(textBox3.Text) * 60000;
+                            volte = Convert.ToInt32(textBox4.Text);
+                        }
                         else
                         {
                             start = false;
-                            MessageBox.Show("Inserisci il codice dell'account scolastico.");
+                            MessageBox.Show("Inserisci un intervallo.");
                         }
 
                         if (start == true)
                         {
-                            button1.Text = "STOP";
-
-                            for (int i = 1; i <= 10; i++)
+                            if (textBox5.Text != "")
+                                url = "https://meet.google.com/?authuser=" + textBox5.Text;
+                            else
                             {
-                                await Task.Delay(1000);
-                                SendKeys.Send("^{ESC}");
-                                await Task.Delay(1000);
-
-                                SendKeys.SendWait("chrome");
-                                SendKeys.Send("{Enter}");
-                                await Task.Delay(2000);
-
-                                SendKeys.SendWait(url);
-                                SendKeys.Send("{Enter}");
-                                await Task.Delay(5000);
-
-                                SendKeys.SendWait(classe);
-                                SendKeys.Send("{Enter}");
-                                await Task.Delay(5000);
-
-                                SendKeys.Send("^e");
-                                SendKeys.Send("^d");
-                                await Task.Delay(2000);
-
-                                LeftMouseClick(1250, 600);
-                                await Task.Delay(60000);
-
-                                SendKeys.Send("%{F4}");
+                                start = false;
+                                MessageBox.Show("Inserisci il codice dell'account scolastico.");
                             }
 
-                            button1.Text = "Collegati!";
-                            MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
+                            if (start == true)
+                            {
+                                if (checkBox1.Checked == true)
+                                {
+                                    if (textBox6.Text != "")
+                                        messaggio = textBox6.Text;
+                                    else
+                                    {
+                                        start = false;
+                                        MessageBox.Show("Inserisci il messaggio.");
+                                    }
+                                }
+
+                                if (start == true)
+                                {
+                                    button1.Text = "STOP";
+
+                                    for (int i = 1; i <= volte; i++)
+                                    {
+                                        await Task.Delay(1000);
+                                        SendKeys.Send("^{ESC}");
+                                        await Task.Delay(1000);
+
+                                        SendKeys.SendWait("chrome");
+                                        await Task.Delay(1000);
+                                        SendKeys.Send("{Enter}");
+                                        await Task.Delay(3000);
+
+                                        SendKeys.SendWait(url);
+                                        await Task.Delay(1000);
+                                        SendKeys.Send("{Enter}");
+                                        await Task.Delay(5000);
+
+                                        SendKeys.SendWait(classe);
+                                        await Task.Delay(1000);
+                                        SendKeys.Send("{Enter}");
+                                        await Task.Delay(5000);
+
+                                        SendKeys.Send("^e");
+                                        await Task.Delay(1000);
+                                        SendKeys.Send("^d");
+                                        await Task.Delay(1000);
+
+                                        LeftMouseClick(1250, 600);
+
+                                        if (checkBox1.Checked == true)
+                                        {
+                                            await Task.Delay(3000);
+                                            LeftMouseClick(1700, 130);
+                                            await Task.Delay(2000);
+
+                                            SendKeys.SendWait(messaggio);
+                                            await Task.Delay(1000);
+                                            SendKeys.Send("{Enter}");
+                                        }
+
+                                        await Task.Delay(minuti);
+
+                                        if (i != volte)
+                                            SendKeys.Send("%{F4}");
+                                    }
+
+                                    button1.Text = "Riprova.";
+
+                                    MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
+                                }
+                            }
                         }
                     }
                 }
