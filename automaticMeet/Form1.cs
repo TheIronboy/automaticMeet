@@ -103,7 +103,7 @@ namespace automaticMeet
                         if (start == true)
                         {
                             if (textBox5.Text != "")
-                                url = "https://meet.google.com/?authuser=" + textBox5.Text;
+                                url = "https://meet.google.com/landing?authuser=" + textBox5.Text;
                             else
                             {
                                 start = false;
