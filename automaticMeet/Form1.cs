@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace automaticMeet
@@ -26,84 +27,92 @@ namespace automaticMeet
             mouse_event(MOUSEEVENTF_LEFTUP, xpos, ypos, 0, 0);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public async void button1_Click(object sender, EventArgs e)
         {
             string classe = "", url = "";
             bool start = true;
 
-            if (radioButton1.Checked == true)
-                classe = "3finf";
-            else if (radioButton2.Checked == true)
-                classe = textBox1.Text;
+            if (button1.Text == "STOP")
+                Application.Exit();
             else
             {
-                start = false;
-                MessageBox.Show("Seleziona una classe.");
-            }
-
-            if (start == true)
-            {
-                if (radioButton3.Checked == true)
-                    classe += "-1";
-                else if (radioButton4.Checked == true)
-                    classe += "-2";
-                else if (radioButton5.Checked == true)
-                    classe += "-3";
-                else if (radioButton6.Checked == true)
-                    classe += "-4";
-                else if (radioButton7.Checked == true)
-                    classe += "-5";
-                else if (radioButton8.Checked == true)
-                    classe += "-6";
-                else if (radioButton9.Checked == true)
-                    classe += textBox2.Text;
+                if (radioButton1.Checked == true)
+                    classe = "3finf";
+                else if (radioButton2.Checked == true)
+                    classe = textBox1.Text;
                 else
                 {
                     start = false;
-                    MessageBox.Show("Seleziona un'ora.");
+                    MessageBox.Show("Seleziona una classe.");
                 }
 
                 if (start == true)
                 {
-                    if (textBox3.Text != "")
-                        url = "https://meet.google.com/?authuser=" + textBox3.Text;
+                    if (radioButton3.Checked == true)
+                        classe += "-1";
+                    else if (radioButton4.Checked == true)
+                        classe += "-2";
+                    else if (radioButton5.Checked == true)
+                        classe += "-3";
+                    else if (radioButton6.Checked == true)
+                        classe += "-4";
+                    else if (radioButton7.Checked == true)
+                        classe += "-5";
+                    else if (radioButton8.Checked == true)
+                        classe += "-6";
+                    else if (radioButton9.Checked == true)
+                        classe += textBox2.Text;
                     else
                     {
                         start = false;
-                        MessageBox.Show("Inserisci il codice dell'account scolastico.");
+                        MessageBox.Show("Seleziona un'ora.");
                     }
 
                     if (start == true)
                     {
-                        for (int i = 1; i <= 10; i++)
+                        if (textBox3.Text != "")
+                            url = "https://meet.google.com/?authuser=" + textBox3.Text;
+                        else
                         {
-                            System.Threading.Thread.Sleep(1000);
-                            SendKeys.Send("^{ESC}");
-                            System.Threading.Thread.Sleep(1000);
-
-                            SendKeys.Send("chrome");
-                            SendKeys.Send("{Enter}");
-                            System.Threading.Thread.Sleep(3000);
-
-                            SendKeys.Send(url);
-                            SendKeys.Send("{Enter}");
-                            System.Threading.Thread.Sleep(3000);
-
-                            SendKeys.Send(classe);
-                            SendKeys.Send("{Enter}");
-                            System.Threading.Thread.Sleep(3000);
-
-                            SendKeys.Send("^e");
-                            SendKeys.Send("^d");
-                            System.Threading.Thread.Sleep(1000);
-
-                            LeftMouseClick(1250, 600);
-                            System.Threading.Thread.Sleep(60000);
-
-                            SendKeys.Send("%{F4}");
+                            start = false;
+                            MessageBox.Show("Inserisci il codice dell'account scolastico.");
                         }
 
-                        MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
+                        if (start == true)
+                        {
+                            button1.Text = "STOP";
+
+                            for (int i = 1; i <= 10; i++)
+                            {
+                                await Task.Delay(1000);
+                                SendKeys.Send("^{ESC}");
+                                await Task.Delay(1000);
+
+                                SendKeys.SendWait("chrome");
+                                SendKeys.Send("{Enter}");
+                                await Task.Delay(2000);
+
+                                SendKeys.SendWait(url);
+                                SendKeys.Send("{Enter}");
+                                await Task.Delay(5000);
+
+                                SendKeys.SendWait(classe);
+                                SendKeys.Send("{Enter}");
+                                await Task.Delay(5000);
+
+                                SendKeys.Send("^e");
+                                SendKeys.Send("^d");
+                                await Task.Delay(2000);
+
+                                LeftMouseClick(1250, 600);
+                                await Task.Delay(60000);
+
+                                SendKeys.Send("%{F4}");
+                            }
+
+                            button1.Text = "Collegati!";
+                            MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
+                        }
                     }
                 }
             }
