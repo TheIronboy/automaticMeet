@@ -29,7 +29,7 @@ namespace automaticMeet
 
         public async void button1_Click(object sender, EventArgs e)
         {
-            string classe = "", url = "", messaggio = "";
+            string classe = "", url = url = "https://meet.google.com/landing?authuser=" + numericUpDown3.Value, messaggio = "";
             int minuti = 0, volte = 0;
             bool start = true;
 
@@ -74,132 +74,122 @@ namespace automaticMeet
 
                     if (start == true)
                     {
-                        if (textBox1.Text != "" && textBox2.Text != "")
+                        if (numericUpDown1.Value != 0 && numericUpDown2.Value != 0)
                         {
-                            minuti = 60000 * Convert.ToInt32(textBox1.Text);
-                            volte = Convert.ToInt32(textBox2.Text);
+                            minuti = 60000 * Convert.ToInt32(numericUpDown1.Value);
+                            volte = Convert.ToInt32(numericUpDown2.Value);
                         }
                         else
                         {
                             start = false;
-                            MessageBox.Show("Inserisci un intervallo.");
+                            MessageBox.Show("Inserisci un intervallo valido.");
                         }
 
                         if (start == true)
                         {
-                            if (textBox3.Text != "")
-                                url = "https://meet.google.com/landing?authuser=" + textBox3.Text;
-                            else
+                            if (checkBox4.Checked == true)
                             {
-                                start = false;
-                                MessageBox.Show("Inserisci il codice dell'account scolastico.");
+                                if (checkBox3.Checked == true)
+                                {
+                                    if (textBox2.Text != "")
+                                        messaggio = textBox2.Text;
+                                    else
+                                    {
+                                        start = false;
+                                        MessageBox.Show("Inserisci il messaggio.");
+                                    }
+                                }
+                                else
+                                {
+                                    start = false;
+                                    MessageBox.Show("Devi attivare (Auto Join) per inviare un messaggio in chat.");
+                                }
                             }
 
                             if (start == true)
                             {
-                                if (checkBox4.Checked == true)
+                                button1.Text = "STOP";
+
+                                for (int i = 1; i <= volte; i++)
                                 {
+                                    textBox1.Text = "";
+                                    await Task.Delay(2000);
+
+                                    SendKeys.Send("^{ESC}");
+                                    textBox1.Text += "Ho aperto il menu start." + Environment.NewLine;
+                                    await Task.Delay(2000);
+
+                                    SendKeys.SendWait("chrome");
+                                    await Task.Delay(2000);
+                                    SendKeys.Send("{Enter}");
+                                    textBox1.Text += Environment.NewLine + "Ho aperto Chrome." + Environment.NewLine;
+                                    await Task.Delay(5000);
+
+                                    SendKeys.SendWait(url);
+                                    await Task.Delay(2000);
+                                    SendKeys.Send("{Enter}");
+                                    textBox1.Text += Environment.NewLine + "Ho inserito l'url di meet con l'account specificato." + Environment.NewLine;
+                                    await Task.Delay(5000);
+
+                                    SendKeys.SendWait(classe);
+                                    await Task.Delay(2000);
+                                    SendKeys.Send("{Enter}");
+                                    textBox1.Text += Environment.NewLine + "Ho inserito il codice e ho tentato il collegamento." + Environment.NewLine;
+                                    await Task.Delay(5000);
+
+                                    if (checkBox1.Checked == true)
+                                    {
+                                        SendKeys.Send("^e");
+                                        textBox1.Text += Environment.NewLine + "Ho disattivato la telecamera. " + Environment.NewLine;
+                                        await Task.Delay(1000);
+                                    }
+                                        
+                                    if (checkBox2.Checked == true)
+                                    {
+                                        SendKeys.Send("^d");
+                                        textBox1.Text += Environment.NewLine + "Ho disattivato il microfono. " + Environment.NewLine;
+                                        await Task.Delay(1000);
+                                    }
+
                                     if (checkBox3.Checked == true)
                                     {
-                                        if (textBox5.Text != "")
-                                            messaggio = textBox5.Text;
-                                        else
-                                        {
-                                            start = false;
-                                            MessageBox.Show("Inserisci il messaggio.");
-                                        }
+                                        LeftMouseClick(1250, 600);
+                                        textBox1.Text += Environment.NewLine + "Ho tentato il collegamento." + Environment.NewLine;
+                                        await Task.Delay(5000);
                                     }
-                                    else
+
+                                    if (checkBox4.Checked == true)
                                     {
-                                        start = false;
-                                        MessageBox.Show("Devi attivare (Auto Join) per inviare un messaggio in chat.");
+                                        SendKeys.Send("^%c");
+                                        textBox1.Text += Environment.NewLine + "Ho aperto la chat." + Environment.NewLine;
+                                        await Task.Delay(2000);
+
+                                        SendKeys.SendWait(messaggio);
+                                        await Task.Delay(2000);
+                                        SendKeys.Send("{Enter}");
+                                        textBox1.Text += Environment.NewLine + "Ho inviato il messaggio inserito." + Environment.NewLine;
+
+                                        await Task.Delay(2000);
+                                        SendKeys.Send("^%c");
+                                        textBox1.Text += Environment.NewLine + "Ho chiuso la chat." + Environment.NewLine;
                                     }
-                                }
 
-                                if (start == true)
-                                {
-                                    button1.Text = "STOP";
-
-                                    for (int i = 1; i <= volte; i++)
+                                    if (i != volte)
                                     {
-                                        textBox4.Text = "";
-                                        await Task.Delay(2000);
-
-                                        SendKeys.Send("^{ESC}");
-                                        textBox4.Text += "Ho aperto il menu start." + Environment.NewLine;
-                                        await Task.Delay(2000);
-
-                                        SendKeys.SendWait("chrome");
-                                        await Task.Delay(2000);
-                                        SendKeys.Send("{Enter}");
-                                        textBox4.Text += Environment.NewLine + "Ho aperto Chrome." + Environment.NewLine;
-                                        await Task.Delay(5000);
-
-                                        SendKeys.SendWait(url);
-                                        await Task.Delay(2000);
-                                        SendKeys.Send("{Enter}");
-                                        textBox4.Text += Environment.NewLine + "Ho inserito l'url di meet con l'account specificato." + Environment.NewLine;
-                                        await Task.Delay(5000);
-
-                                        SendKeys.SendWait(classe);
-                                        await Task.Delay(2000);
-                                        SendKeys.Send("{Enter}");
-                                        textBox4.Text += Environment.NewLine + "Ho inserito il codice e ho tentato il collegamento." + Environment.NewLine;
-                                        await Task.Delay(5000);
-
-                                        if (checkBox1.Checked == true)
-                                        {
-                                            SendKeys.Send("^e");
-                                            textBox4.Text += Environment.NewLine + "Ho disattivato la telecamera. " + Environment.NewLine;
-                                            await Task.Delay(1000);
-                                        }
-                                        
-                                        if (checkBox2.Checked == true)
-                                        {
-                                            SendKeys.Send("^d");
-                                            textBox4.Text += Environment.NewLine + "Ho disattivato il microfono. " + Environment.NewLine;
-                                            await Task.Delay(1000);
-                                        }
-
-                                        if (checkBox3.Checked == true)
-                                        {
-                                            LeftMouseClick(1250, 600);
-                                            textBox4.Text += Environment.NewLine + "Ho tentato il collegamento." + Environment.NewLine;
-                                            await Task.Delay(5000);
-                                        }
-
-                                        if (checkBox4.Checked == true)
-                                        {
-                                            SendKeys.Send("^%c");
-                                            textBox4.Text += Environment.NewLine + "Ho aperto la chat." + Environment.NewLine;
-                                            await Task.Delay(2000);
-
-                                            SendKeys.SendWait(messaggio);
-                                            await Task.Delay(2000);
-                                            SendKeys.Send("{Enter}");
-                                            textBox4.Text += Environment.NewLine + "Ho inviato il messaggio inserito." + Environment.NewLine;
-
-                                            await Task.Delay(2000);
-                                            SendKeys.Send("^%c");
-                                            textBox4.Text += Environment.NewLine + "Ho chiuso la chat." + Environment.NewLine;
-                                        }
-
-                                        textBox4.Text += Environment.NewLine + "In caso di riuscita, chiudere il programma ORA, altrimenti, riproverò automaticamente tra: " + textBox1.Text + " minuti.";
+                                        textBox1.Text += Environment.NewLine + "In caso di riuscita, chiudere il programma ORA, altrimenti, riproverò automaticamente tra: " + numericUpDown1.Value + " minuti.";
                                         await Task.Delay(minuti);
-
-                                        if (i != volte)
-                                            SendKeys.Send("%{F4}");
+                                        SendKeys.Send("%{F4}");
                                     }
-
-                                    button1.Text = "Riprova.";
-                                    MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
-
-                                    Form2 crediti = new Form2();
-                                    crediti.Show();
-
-                                    await Task.Delay(5000);
-                                    crediti.Close();
                                 }
+
+                                button1.Text = "Riprova.";
+                                MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
+
+                                Form2 crediti = new Form2();
+                                crediti.Show();
+
+                                await Task.Delay(5000);
+                                crediti.Close();
                             }
                         }
                     }
