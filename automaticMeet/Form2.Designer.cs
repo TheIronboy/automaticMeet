@@ -72,12 +72,12 @@ namespace automaticMeet
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(95, 99);
+            this.label1.Location = new System.Drawing.Point(98, 99);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 16);
             this.label1.TabIndex = 19;
-            this.label1.Text = "Automatic Meet v1.7";
+            this.label1.Text = "Automatic Meet v2.0";
             // 
             // Form2
             // 
