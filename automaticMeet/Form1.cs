@@ -37,62 +37,47 @@ namespace automaticMeet
                 Application.Exit();
             else
             {
-                if (radioButton1.Checked == true)
-                    classe = "3finf";
-                else if (radioButton2.Checked == true)
-                {
-                    if (textBox1.Text != "")
-                        classe = textBox1.Text;
-                    else
-                    {
-                        start = false;
-                        MessageBox.Show("Inserisci una classe.");
-                    }
-                }
-                else
+                if (comboBox1.Text == "")
                 {
                     start = false;
-                    MessageBox.Show("Seleziona una classe.");
+                    MessageBox.Show("Seleziona o inserisci un codice.");
                 }
+                else if (comboBox1.Text == "3F INFORMATICA")
+                    classe = "3finf";
+                else
+                    classe = comboBox1.Text;
 
                 if (start == true)
                 {
-                    if (radioButton3.Checked == true)
-                        classe += "-1";
-                    else if (radioButton4.Checked == true)
-                        classe += "-2";
-                    else if (radioButton5.Checked == true)
-                        classe += "-3";
-                    else if (radioButton6.Checked == true)
-                        classe += "-4";
-                    else if (radioButton7.Checked == true)
-                        classe += "-5";
-                    else if (radioButton8.Checked == true)
-                        classe += "-6";
-                    else if (radioButton9.Checked == true)
-                        start = true;
-                    else if (radioButton10.Checked == true)
-                    {
-                        if (textBox2.Text != "")
-                            classe += textBox2.Text;
-                        else
-                        {
-                            start = false;
-                            MessageBox.Show("Inserisci un'ora.");
-                        }
-                    }
-                    else
+                    if (comboBox2.Text == "")
                     {
                         start = false;
-                        MessageBox.Show("Seleziona un'ora.");
+                        MessageBox.Show("Seleziona o inserisci un'ora.");
                     }
+                    else if (comboBox2.Text == "1 ORA")
+                        classe += "-1";
+                    else if (comboBox2.Text == "2 ORA")
+                        classe += "-2";
+                    else if (comboBox2.Text == "3 ORA")
+                        classe += "-3";
+                    else if (comboBox2.Text == "4 ORA")
+                        classe += "-4";
+                    else if (comboBox2.Text == "5 ORA")
+                        classe += "-5";
+                    else if (comboBox2.Text == "6 ORA")
+                        classe += "-6";
+                    else if (comboBox2.Text == "NESSUNA")
+                        start = true;
+
+                    else
+                        classe += comboBox2.Text;
 
                     if (start == true)
                     {
-                        if (textBox3.Text != "" && textBox4.Text != "")
+                        if (textBox1.Text != "" && textBox2.Text != "")
                         {
-                            minuti = Convert.ToInt32(textBox3.Text) * 60000;
-                            volte = Convert.ToInt32(textBox4.Text);
+                            minuti = 60000 * Convert.ToInt32(textBox1.Text);
+                            volte = Convert.ToInt32(textBox2.Text);
                         }
                         else
                         {
@@ -102,8 +87,8 @@ namespace automaticMeet
 
                         if (start == true)
                         {
-                            if (textBox5.Text != "")
-                                url = "https://meet.google.com/landing?authuser=" + textBox5.Text;
+                            if (textBox3.Text != "")
+                                url = "https://meet.google.com/landing?authuser=" + textBox3.Text;
                             else
                             {
                                 start = false;
@@ -112,12 +97,12 @@ namespace automaticMeet
 
                             if (start == true)
                             {
-                                if (checkBox1.Checked == true)
+                                if (checkBox4.Checked == true)
                                 {
-                                    if (checkBox2.Checked == true)
+                                    if (checkBox3.Checked == true)
                                     {
-                                        if (textBox6.Text != "")
-                                            messaggio = textBox6.Text;
+                                        if (textBox5.Text != "")
+                                            messaggio = textBox5.Text;
                                         else
                                         {
                                             start = false;
@@ -127,7 +112,7 @@ namespace automaticMeet
                                     else
                                     {
                                         start = false;
-                                        MessageBox.Show("Devi attivare (Auto-Connect) per inviare un messaggio in chat.");
+                                        MessageBox.Show("Devi attivare (Auto Join) per inviare un messaggio in chat.");
                                     }
                                 }
 
@@ -137,46 +122,69 @@ namespace automaticMeet
 
                                     for (int i = 1; i <= volte; i++)
                                     {
-                                        await Task.Delay(1000);
+                                        textBox4.Text = "";
+                                        await Task.Delay(2000);
+
                                         SendKeys.Send("^{ESC}");
+                                        textBox4.Text += "Ho aperto il menu start." + Environment.NewLine;
                                         await Task.Delay(2000);
 
                                         SendKeys.SendWait("chrome");
-                                        await Task.Delay(1000);
+                                        await Task.Delay(2000);
                                         SendKeys.Send("{Enter}");
+                                        textBox4.Text += Environment.NewLine + "Ho aperto Chrome." + Environment.NewLine;
                                         await Task.Delay(5000);
 
                                         SendKeys.SendWait(url);
-                                        await Task.Delay(1000);
+                                        await Task.Delay(2000);
                                         SendKeys.Send("{Enter}");
+                                        textBox4.Text += Environment.NewLine + "Ho inserito l'url di meet con l'account specificato." + Environment.NewLine;
                                         await Task.Delay(5000);
 
                                         SendKeys.SendWait(classe);
-                                        await Task.Delay(1000);
+                                        await Task.Delay(2000);
                                         SendKeys.Send("{Enter}");
+                                        textBox4.Text += Environment.NewLine + "Ho inserito il codice e ho tentato il collegamento." + Environment.NewLine;
                                         await Task.Delay(5000);
-
-                                        SendKeys.Send("^e");
-                                        await Task.Delay(1000);
-                                        SendKeys.Send("^d");
-                                        
-                                        if (checkBox2.Checked == true)
-                                        {
-                                            await Task.Delay(2000);
-                                            LeftMouseClick(1250, 600);
-                                        }
 
                                         if (checkBox1.Checked == true)
                                         {
-                                            await Task.Delay(5000);
-                                            LeftMouseClick(1700, 130);
-                                            await Task.Delay(5000);
-
-                                            SendKeys.SendWait(messaggio);
+                                            SendKeys.Send("^e");
+                                            textBox4.Text += Environment.NewLine + "Ho disattivato la telecamera. " + Environment.NewLine;
                                             await Task.Delay(1000);
-                                            SendKeys.Send("{Enter}");
+                                        }
+                                        
+                                        if (checkBox2.Checked == true)
+                                        {
+                                            SendKeys.Send("^d");
+                                            textBox4.Text += Environment.NewLine + "Ho disattivato il microfono. " + Environment.NewLine;
+                                            await Task.Delay(1000);
                                         }
 
+                                        if (checkBox3.Checked == true)
+                                        {
+                                            LeftMouseClick(1250, 600);
+                                            textBox4.Text += Environment.NewLine + "Ho tentato il collegamento." + Environment.NewLine;
+                                            await Task.Delay(5000);
+                                        }
+
+                                        if (checkBox4.Checked == true)
+                                        {
+                                            SendKeys.Send("^%c");
+                                            textBox4.Text += Environment.NewLine + "Ho aperto la chat." + Environment.NewLine;
+                                            await Task.Delay(2000);
+
+                                            SendKeys.SendWait(messaggio);
+                                            await Task.Delay(2000);
+                                            SendKeys.Send("{Enter}");
+                                            textBox4.Text += Environment.NewLine + "Ho inviato il messaggio inserito." + Environment.NewLine;
+
+                                            await Task.Delay(2000);
+                                            SendKeys.Send("^%c");
+                                            textBox4.Text += Environment.NewLine + "Ho chiuso la chat." + Environment.NewLine;
+                                        }
+
+                                        textBox4.Text += Environment.NewLine + "In caso di riuscita, chiudere il programma ORA, altrimenti, riproverò automaticamente tra: " + textBox1.Text + " minuti.";
                                         await Task.Delay(minuti);
 
                                         if (i != volte)
@@ -184,8 +192,13 @@ namespace automaticMeet
                                     }
 
                                     button1.Text = "Riprova.";
-
                                     MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
+
+                                    Form2 crediti = new Form2();
+                                    crediti.Show();
+
+                                    await Task.Delay(5000);
+                                    crediti.Close();
                                 }
                             }
                         }

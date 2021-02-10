@@ -8,3 +8,4 @@ D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet
 D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csproj.CoreCompileInputs.cache
 D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.exe
 D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.pdb
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.Form2.resources
