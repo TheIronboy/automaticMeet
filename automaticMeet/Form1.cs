@@ -114,12 +114,20 @@ namespace automaticMeet
                             {
                                 if (checkBox1.Checked == true)
                                 {
-                                    if (textBox6.Text != "")
-                                        messaggio = textBox6.Text;
+                                    if (checkBox2.Checked == true)
+                                    {
+                                        if (textBox6.Text != "")
+                                            messaggio = textBox6.Text;
+                                        else
+                                        {
+                                            start = false;
+                                            MessageBox.Show("Inserisci il messaggio.");
+                                        }
+                                    }
                                     else
                                     {
                                         start = false;
-                                        MessageBox.Show("Inserisci il messaggio.");
+                                        MessageBox.Show("Devi attivare (Auto-Connect) per inviare un messaggio in chat.");
                                     }
                                 }
 
@@ -151,13 +159,16 @@ namespace automaticMeet
                                         SendKeys.Send("^e");
                                         await Task.Delay(1000);
                                         SendKeys.Send("^d");
-                                        await Task.Delay(1000);
-
-                                        LeftMouseClick(1250, 600);
+                                        
+                                        if (checkBox2.Checked == true)
+                                        {
+                                            await Task.Delay(3000);
+                                            LeftMouseClick(1250, 600);
+                                            await Task.Delay(2000);
+                                        }
 
                                         if (checkBox1.Checked == true)
                                         {
-                                            await Task.Delay(3000);
                                             LeftMouseClick(1700, 130);
                                             await Task.Delay(2000);
 

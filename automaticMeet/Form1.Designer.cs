@@ -37,6 +37,7 @@ namespace automaticMeet
             this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButton9 = new System.Windows.Forms.RadioButton();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.radioButton10 = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,14 +51,14 @@ namespace automaticMeet
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radioButton9 = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -168,6 +169,18 @@ namespace automaticMeet
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ora:";
             // 
+            // radioButton9
+            // 
+            this.radioButton9.AutoSize = true;
+            this.radioButton9.Location = new System.Drawing.Point(176, 74);
+            this.radioButton9.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButton9.Name = "radioButton9";
+            this.radioButton9.Size = new System.Drawing.Size(103, 28);
+            this.radioButton9.TabIndex = 13;
+            this.radioButton9.TabStop = true;
+            this.radioButton9.Text = "Nessuna";
+            this.radioButton9.UseVisualStyleBackColor = true;
+            // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(175, 113);
@@ -191,7 +204,7 @@ namespace automaticMeet
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(246, 514);
+            this.label5.Location = new System.Drawing.Point(246, 540);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(146, 16);
             this.label5.TabIndex = 8;
@@ -201,7 +214,7 @@ namespace automaticMeet
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(211, 530);
+            this.label6.Location = new System.Drawing.Point(211, 556);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(181, 16);
             this.label6.TabIndex = 9;
@@ -274,7 +287,7 @@ namespace automaticMeet
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(264, 33);
+            this.textBox4.Location = new System.Drawing.Point(259, 33);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(42, 26);
             this.textBox4.TabIndex = 11;
@@ -282,7 +295,7 @@ namespace automaticMeet
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(124, 33);
+            this.textBox3.Location = new System.Drawing.Point(123, 33);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(42, 26);
             this.textBox3.TabIndex = 12;
@@ -301,35 +314,35 @@ namespace automaticMeet
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tempo:";
             // 
-            // label1
+            // label3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 20);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Riprova ogni:";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(307, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 20);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "volte.";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(172, 36);
+            this.label2.Location = new System.Drawing.Point(171, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 20);
+            this.label2.Size = new System.Drawing.Size(82, 20);
             this.label2.TabIndex = 14;
-            this.label2.Text = "minuti, per:";
+            this.label2.Text = "minuti, per";
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(312, 36);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 20);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "volte.";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(20, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 20);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Riprova ogni";
             // 
             // checkBox1
             // 
@@ -363,33 +376,33 @@ namespace automaticMeet
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Chat:";
             // 
-            // radioButton9
-            // 
-            this.radioButton9.AutoSize = true;
-            this.radioButton9.Location = new System.Drawing.Point(176, 74);
-            this.radioButton9.Margin = new System.Windows.Forms.Padding(6);
-            this.radioButton9.Name = "radioButton9";
-            this.radioButton9.Size = new System.Drawing.Size(103, 28);
-            this.radioButton9.TabIndex = 13;
-            this.radioButton9.TabStop = true;
-            this.radioButton9.Text = "Nessuna";
-            this.radioButton9.UseVisualStyleBackColor = true;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(334, 494);
+            this.label4.Location = new System.Drawing.Point(334, 520);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 20);
             this.label4.TabIndex = 15;
             this.label4.Text = "Crediti:";
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(15, 555);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(107, 20);
+            this.checkBox2.TabIndex = 15;
+            this.checkBox2.Text = "Auto-Connect";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 561);
+            this.ClientSize = new System.Drawing.Size(404, 582);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
@@ -403,7 +416,7 @@ namespace automaticMeet
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
-            this.Text = "Automatic Meet v1.5";
+            this.Text = "Automatic Meet v1.6";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -450,6 +463,7 @@ namespace automaticMeet
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.RadioButton radioButton9;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 
