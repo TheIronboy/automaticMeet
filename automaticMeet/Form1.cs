@@ -139,12 +139,12 @@ namespace automaticMeet
                                     {
                                         await Task.Delay(1000);
                                         SendKeys.Send("^{ESC}");
-                                        await Task.Delay(1000);
+                                        await Task.Delay(2000);
 
                                         SendKeys.SendWait("chrome");
                                         await Task.Delay(1000);
                                         SendKeys.Send("{Enter}");
-                                        await Task.Delay(3000);
+                                        await Task.Delay(5000);
 
                                         SendKeys.SendWait(url);
                                         await Task.Delay(1000);
@@ -162,15 +162,15 @@ namespace automaticMeet
                                         
                                         if (checkBox2.Checked == true)
                                         {
-                                            await Task.Delay(3000);
-                                            LeftMouseClick(1250, 600);
                                             await Task.Delay(2000);
+                                            LeftMouseClick(1250, 600);
                                         }
 
                                         if (checkBox1.Checked == true)
                                         {
+                                            await Task.Delay(5000);
                                             LeftMouseClick(1700, 130);
-                                            await Task.Delay(2000);
+                                            await Task.Delay(5000);
 
                                             SendKeys.SendWait(messaggio);
                                             await Task.Delay(1000);
