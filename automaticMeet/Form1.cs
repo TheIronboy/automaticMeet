@@ -77,6 +77,7 @@ namespace automaticMeet
                         {
                             minuti = 60000 * Convert.ToInt32(numericUpDown1.Value);
                             volte = Convert.ToInt32(numericUpDown2.Value);
+                            progressBar1.Maximum = volte;
                         }
                         else
                         {
@@ -173,6 +174,8 @@ namespace automaticMeet
                                         textBox1.Text += Environment.NewLine + "Ho chiuso la chat." + Environment.NewLine;
                                     }
 
+                                    progressBar1.Increment(1);
+
                                     if (i != volte)
                                     {
                                         textBox1.Text += Environment.NewLine + "In caso di riuscita, chiudere il programma ORA, altrimenti, riproverò automaticamente tra: " + numericUpDown1.Value + " minuti." + Environment.NewLine;
@@ -186,6 +189,7 @@ namespace automaticMeet
 
                                 button1.Text = "Riprova.";
                                 MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
+                                progressBar1.Value = 0;
 
                                 Form2 crediti = new Form2();
                                 crediti.Show();
