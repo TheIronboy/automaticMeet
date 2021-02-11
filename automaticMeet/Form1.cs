@@ -29,7 +29,7 @@ namespace automaticMeet
 
         public async void button1_Click(object sender, EventArgs e)
         {
-            string classe = "", url = url = "https://meet.google.com/landing?authuser=" + numericUpDown3.Value, messaggio = "";
+            string classe = "", messaggio = "", url = "https://meet.google.com/landing?authuser=" + numericUpDown3.Value;
             int minuti = 0, volte = 0;
             bool start = true;
 
@@ -68,7 +68,6 @@ namespace automaticMeet
                         classe += "-6";
                     else if (comboBox2.Text == "NESSUNA")
                         start = true;
-
                     else
                         classe += comboBox2.Text;
 
@@ -176,8 +175,11 @@ namespace automaticMeet
 
                                     if (i != volte)
                                     {
-                                        textBox1.Text += Environment.NewLine + "In caso di riuscita, chiudere il programma ORA, altrimenti, riproverò automaticamente tra: " + numericUpDown1.Value + " minuti.";
+                                        textBox1.Text += Environment.NewLine + "In caso di riuscita, chiudere il programma ORA, altrimenti, riproverò automaticamente tra: " + numericUpDown1.Value + " minuti." + Environment.NewLine;
                                         await Task.Delay(minuti);
+
+                                        textBox1.Text += Environment.NewLine + "Sto riprovando, chiudo chrome...";
+                                        await Task.Delay(2000);
                                         SendKeys.Send("%{F4}");
                                     }
                                 }

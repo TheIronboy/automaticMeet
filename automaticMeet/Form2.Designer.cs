@@ -77,7 +77,7 @@ namespace automaticMeet
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 16);
             this.label4.TabIndex = 19;
-            this.label4.Text = "Automatic Meet v2.0";
+            this.label4.Text = "Automatic Meet v2.1";
             // 
             // Form2
             // 
