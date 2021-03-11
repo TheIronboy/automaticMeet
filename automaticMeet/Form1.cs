@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Drawing.Imaging;
@@ -130,27 +131,28 @@ namespace automaticMeet
                             {
                                 button1.Text = "STOP";
 
+                                progressBar1.Value = 0;
+                                progressBar1.Maximum = 10;
+
+                                await Task.Delay(5000);
+                                Process processo = Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
+
+                                progressBar1.Increment(1);
+                                await Task.Delay(5000);
+
+                                SendKeys.SendWait(url);
+                                SendKeys.Send("{Enter}");
+
+                                progressBar1.Increment(1);
+                                await Task.Delay(5000);
+
+                                SendKeys.SendWait(classe);
+
+                                progressBar1.Increment(1);
+
                                 while (start == true)
                                 {
-                                    progressBar1.Value = 0;
-                                    progressBar1.Maximum = 10;
-
-                                    await Task.Delay(5000);
-                                    System.Diagnostics.Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
-
-                                    progressBar1.Increment(1);
-                                    await Task.Delay(5000);
-
-                                    SendKeys.SendWait(url);
                                     SendKeys.Send("{Enter}");
-
-                                    progressBar1.Increment(1);
-                                    await Task.Delay(5000);
-
-                                    SendKeys.SendWait(classe);
-                                    SendKeys.Send("{Enter}");
-
-                                    progressBar1.Increment(1);
                                     await Task.Delay(5000);
 
                                     Color coloreBottone = GetColorAt(coordX, coordY);
@@ -208,6 +210,7 @@ namespace automaticMeet
                                         else
                                             progressBar1.Increment(3);
 
+                                        start = false;
                                         progressBar1.Increment(1);
                                         MessageBox.Show("Connesso!");
                                     }
@@ -221,14 +224,11 @@ namespace automaticMeet
                                             await Task.Delay(30000);
                                             progressBar1.Increment(1);
                                         }
-
-                                        await Task.Delay(2000);
-                                        SendKeys.Send("%{F4}");
                                     }
                                 }
 
                                 button1.Text = "Riavvia";
-                                MessageBox.Show("Idea by Misael Canova" + Environment.NewLine + "Developed by Luca Giordano.");
+                                MessageBox.Show("Idea by Misael Canova. Developed by Luca Giordano.");
                             }
                         }
                     }
