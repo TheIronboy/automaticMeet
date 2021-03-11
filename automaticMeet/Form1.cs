@@ -1,21 +1,45 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace automaticMeet
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
+        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
+        public static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern bool SetCursorPos(int x, int y);
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        Bitmap screenPixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
+
+        public Color GetColorAt(int xpos, int ypos)
+        {
+            using (Graphics gdest = Graphics.FromImage(screenPixel))
+            {
+                using (Graphics gsrc = Graphics.FromHwnd(IntPtr.Zero))
+                {
+                    IntPtr hSrcDC = gsrc.GetHdc();
+                    IntPtr hDC = gdest.GetHdc();
+                    int retval = BitBlt(hDC, 0, 0, 1, 1, hSrcDC, xpos, ypos, (int)CopyPixelOperation.SourceCopy);
+                    gdest.ReleaseHdc();
+                    gsrc.ReleaseHdc();
+                }
+            }
+            return screenPixel.GetPixel(0, 0);
+        }
 
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
@@ -29,9 +53,9 @@ namespace automaticMeet
 
         public async void button1_Click(object sender, EventArgs e)
         {
-            string classe = "", messaggio = "", url = "https://meet.google.com/landing?authuser=" + numericUpDown3.Value;
-            int minuti = 0, volte = 0;
             bool start = true;
+            int minuti = 0, coordX = 1250, coordY = 600;
+            string classe = "", messaggio = "", url = "https://meet.google.com/landing?authuser=" + numericUpDown2.Value;
 
             if (button1.Text == "STOP")
                 Application.Exit();
@@ -73,12 +97,8 @@ namespace automaticMeet
 
                     if (start == true)
                     {
-                        if (numericUpDown1.Value != 0 && numericUpDown2.Value != 0)
-                        {
-                            minuti = 60000 * Convert.ToInt32(numericUpDown1.Value);
-                            volte = Convert.ToInt32(numericUpDown2.Value);
-                            progressBar1.Maximum = volte;
-                        }
+                        if (numericUpDown1.Value != 0)
+                            minuti = Convert.ToInt32(numericUpDown1.Value) * 2;
                         else
                         {
                             start = false;
@@ -91,8 +111,8 @@ namespace automaticMeet
                             {
                                 if (checkBox3.Checked == true)
                                 {
-                                    if (textBox2.Text != "")
-                                        messaggio = textBox2.Text;
+                                    if (textBox1.Text != "")
+                                        messaggio = textBox1.Text;
                                     else
                                     {
                                         start = false;
@@ -110,92 +130,105 @@ namespace automaticMeet
                             {
                                 button1.Text = "STOP";
 
-                                for (int i = 1; i <= volte; i++)
+                                while (start == true)
                                 {
-                                    textBox1.Text = "";
-                                    await Task.Delay(2000);
+                                    progressBar1.Value = 0;
+                                    progressBar1.Maximum = 10;
 
-                                    SendKeys.Send("^{ESC}");
-                                    textBox1.Text += "Ho aperto il menu start." + Environment.NewLine;
-                                    await Task.Delay(2000);
+                                    await Task.Delay(5000);
+                                    System.Diagnostics.Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
 
-                                    SendKeys.SendWait("chrome");
-                                    await Task.Delay(2000);
-                                    SendKeys.Send("{Enter}");
-                                    textBox1.Text += Environment.NewLine + "Ho aperto Chrome." + Environment.NewLine;
+                                    progressBar1.Increment(1);
                                     await Task.Delay(5000);
 
                                     SendKeys.SendWait(url);
-                                    await Task.Delay(2000);
                                     SendKeys.Send("{Enter}");
-                                    textBox1.Text += Environment.NewLine + "Ho inserito l'url di meet con l'account specificato." + Environment.NewLine;
+
+                                    progressBar1.Increment(1);
                                     await Task.Delay(5000);
 
                                     SendKeys.SendWait(classe);
-                                    await Task.Delay(2000);
                                     SendKeys.Send("{Enter}");
-                                    textBox1.Text += Environment.NewLine + "Ho inserito il codice e ho tentato il collegamento." + Environment.NewLine;
-                                    await Task.Delay(5000);
-
-                                    if (checkBox1.Checked == true)
-                                    {
-                                        SendKeys.Send("^e");
-                                        textBox1.Text += Environment.NewLine + "Ho disattivato la telecamera. " + Environment.NewLine;
-                                        await Task.Delay(1000);
-                                    }
-                                        
-                                    if (checkBox2.Checked == true)
-                                    {
-                                        SendKeys.Send("^d");
-                                        textBox1.Text += Environment.NewLine + "Ho disattivato il microfono. " + Environment.NewLine;
-                                        await Task.Delay(1000);
-                                    }
-
-                                    if (checkBox3.Checked == true)
-                                    {
-                                        LeftMouseClick(1250, 600);
-                                        textBox1.Text += Environment.NewLine + "Ho tentato il collegamento." + Environment.NewLine;
-                                        await Task.Delay(5000);
-                                    }
-
-                                    if (checkBox4.Checked == true)
-                                    {
-                                        SendKeys.Send("^%c");
-                                        textBox1.Text += Environment.NewLine + "Ho aperto la chat." + Environment.NewLine;
-                                        await Task.Delay(2000);
-
-                                        SendKeys.SendWait(messaggio);
-                                        await Task.Delay(2000);
-                                        SendKeys.Send("{Enter}");
-                                        textBox1.Text += Environment.NewLine + "Ho inviato il messaggio inserito." + Environment.NewLine;
-
-                                        await Task.Delay(2000);
-                                        SendKeys.Send("^%c");
-                                        textBox1.Text += Environment.NewLine + "Ho chiuso la chat." + Environment.NewLine;
-                                    }
 
                                     progressBar1.Increment(1);
+                                    await Task.Delay(5000);
 
-                                    if (i != volte)
+                                    Color coloreBottone = GetColorAt(coordX, coordY);
+
+                                    if (coloreBottone.R == 0 && coloreBottone.G == 121 && coloreBottone.B == 174)
                                     {
-                                        textBox1.Text += Environment.NewLine + "In caso di riuscita, chiudere il programma ORA, altrimenti, riproverò automaticamente tra: " + numericUpDown1.Value + " minuti." + Environment.NewLine;
-                                        await Task.Delay(minuti);
+                                        if (checkBox1.Checked == true)
+                                        {
+                                            SendKeys.Send("^e");
 
-                                        textBox1.Text += Environment.NewLine + "Sto riprovando, chiudo chrome...";
+                                            progressBar1.Increment(1);
+                                            await Task.Delay(1000);
+                                        }
+                                        else
+                                            progressBar1.Increment(1);
+
+                                        if (checkBox2.Checked == true)
+                                        {
+                                            SendKeys.Send("^d");
+
+                                            progressBar1.Increment(1);
+                                            await Task.Delay(1000);
+                                        }
+                                        else
+                                            progressBar1.Increment(1);
+
+                                        if (checkBox3.Checked == true)
+                                        {
+                                            LeftMouseClick(coordX, coordY);
+
+                                            progressBar1.Increment(1);
+                                            await Task.Delay(5000);
+                                        }
+                                        else
+                                            progressBar1.Increment(1);
+
+                                        if (checkBox4.Checked == true)
+                                        {
+                                            SendKeys.Send("^%c");
+
+                                            progressBar1.Increment(1);
+                                            await Task.Delay(2000);
+
+                                            SendKeys.SendWait(messaggio);
+                                            SendKeys.Send("{Enter}");
+
+                                            progressBar1.Increment(1);
+                                            await Task.Delay(2000);
+
+                                            SendKeys.Send("^%c");
+
+                                            progressBar1.Increment(1);
+                                            await Task.Delay(2000);
+                                        }
+                                        else
+                                            progressBar1.Increment(3);
+
+                                        progressBar1.Increment(1);
+                                        MessageBox.Show("Connesso!");
+                                    }
+                                    else
+                                    {
+                                        progressBar1.Value = 0;
+                                        progressBar1.Maximum = minuti;
+
+                                        for (int i = 0; i < minuti; i++)
+                                        {
+                                            await Task.Delay(30000);
+                                            progressBar1.Increment(1);
+                                        }
+
                                         await Task.Delay(2000);
                                         SendKeys.Send("%{F4}");
                                     }
                                 }
 
-                                button1.Text = "Riprova.";
-                                MessageBox.Show("Tentativi terminati, se non sei connesso, riprova.");
-                                progressBar1.Value = 0;
-
-                                Form2 crediti = new Form2();
-                                crediti.Show();
-
-                                await Task.Delay(5000);
-                                crediti.Close();
+                                button1.Text = "Riavvia";
+                                MessageBox.Show("Idea by Misael Canova" + Environment.NewLine + "Developed by Luca Giordano.");
                             }
                         }
                     }
