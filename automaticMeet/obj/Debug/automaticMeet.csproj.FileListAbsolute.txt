@@ -1,0 +1,21 @@
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\bin\Debug\automaticMeet.exe.config
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\bin\Debug\automaticMeet.exe
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\bin\Debug\automaticMeet.pdb
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csprojAssemblyReference.cache
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.Form1.resources
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.Properties.Resources.resources
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csproj.GenerateResource.cache
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csproj.CoreCompileInputs.cache
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.exe
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.pdb
+D:\TheIronboy\Google Drive\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.Form2.resources
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\bin\Debug\automaticMeet.exe.config
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\bin\Debug\automaticMeet.exe
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\bin\Debug\automaticMeet.pdb
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csprojAssemblyReference.cache
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.Form1.resources
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.Properties.Resources.resources
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csproj.GenerateResource.cache
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csproj.CoreCompileInputs.cache
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.exe
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.pdb
