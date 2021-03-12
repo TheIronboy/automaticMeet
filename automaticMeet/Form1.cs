@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,18 +14,21 @@ namespace automaticMeet
         [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
         public static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
 
+        Bitmap screenPixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
+
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern bool SetCursorPos(int x, int y);
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
+        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        public const int MOUSEEVENTF_LEFTUP = 0x04;
+
         public Form1()
         {
             InitializeComponent();
         }
-
-        Bitmap screenPixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
 
         public Color GetColorAt(int xpos, int ypos)
         {
@@ -42,9 +46,6 @@ namespace automaticMeet
             return screenPixel.GetPixel(0, 0);
         }
 
-        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        public const int MOUSEEVENTF_LEFTUP = 0x04;
-
         public static void LeftMouseClick(int xpos, int ypos)
         {
             SetCursorPos(xpos, ypos);
@@ -55,7 +56,7 @@ namespace automaticMeet
         public async void button1_Click(object sender, EventArgs e)
         {
             bool start = true;
-            int minuti = 0, coordX = 1250, coordY = 600;
+            int coordX = 0, coordY = 0, minuti = 0;
             string classe = "", messaggio = "", url = "https://meet.google.com/landing?authuser=" + numericUpDown2.Value;
 
             if (button1.Text == "STOP")
@@ -129,111 +130,145 @@ namespace automaticMeet
 
                             if (start == true)
                             {
-                                button1.Text = "STOP";
-
-                                progressBar1.Value = 0;
-                                progressBar1.Maximum = 10;
-
-                                await Task.Delay(2000);
-                                Process processo = Process.Start("chrome");
-
-                                progressBar1.Increment(1);
-                                await Task.Delay(5000);
-
-                                SendKeys.SendWait(url);
-                                SendKeys.Send("{Enter}");
-
-                                progressBar1.Increment(1);
-                                await Task.Delay(5000);
-
-                                SendKeys.SendWait(classe);
-
-                                while (start == true)
+                                try
                                 {
+                                    using (StreamReader sr = File.OpenText(@"C:\automaticMeet\coords.txt"))
+                                        for (int i = 0; i <= 1; i++)
+                                        {
+                                            if (i == 0)
+                                                coordX = Convert.ToInt32(sr.ReadLine());
+                                            else if (i == 1)
+                                                coordY = Convert.ToInt32(sr.ReadLine());
+                                        }
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show("Coordinate da inizializzare, perfavore usa (Calibrator).");
+                                }
+
+                                if (coordX != 0 && coordY != 0)
+                                {
+                                    button1.Text = "STOP";
+
+                                    progressBar1.Value = 0;
+                                    progressBar1.Maximum = 10;
+
+                                    await Task.Delay(2000);
+                                    Process processo = Process.Start("chrome");
+
+                                    progressBar1.Increment(1);
+                                    await Task.Delay(5000);
+
+                                    SendKeys.SendWait(url);
                                     SendKeys.Send("{Enter}");
 
                                     progressBar1.Increment(1);
                                     await Task.Delay(5000);
 
-                                    Color coloreBottone = GetColorAt(coordX, coordY);
+                                    SendKeys.SendWait(classe);
 
-                                    if (coloreBottone.R == 0 && coloreBottone.G == 121 && coloreBottone.B == 174)
+                                    while (start == true)
                                     {
-                                        if (checkBox1.Checked == true)
-                                        {
-                                            SendKeys.Send("^e");
+                                        SendKeys.Send("{Enter}");
 
-                                            progressBar1.Increment(1);
-                                            await Task.Delay(1000);
-                                        }
-                                        else
-                                            progressBar1.Increment(1);
-
-                                        if (checkBox2.Checked == true)
-                                        {
-                                            SendKeys.Send("^d");
-
-                                            progressBar1.Increment(1);
-                                            await Task.Delay(1000);
-                                        }
-                                        else
-                                            progressBar1.Increment(1);
-
-                                        if (checkBox3.Checked == true)
-                                        {
-                                            LeftMouseClick(coordX, coordY);
-
-                                            progressBar1.Increment(1);
-                                            await Task.Delay(5000);
-                                        }
-                                        else
-                                            progressBar1.Increment(1);
-
-                                        if (checkBox4.Checked == true)
-                                        {
-                                            SendKeys.Send("^%c");
-
-                                            progressBar1.Increment(1);
-                                            await Task.Delay(2000);
-
-                                            SendKeys.SendWait(messaggio);
-                                            SendKeys.Send("{Enter}");
-
-                                            progressBar1.Increment(1);
-                                            await Task.Delay(2000);
-
-                                            SendKeys.Send("^%c");
-
-                                            progressBar1.Increment(1);
-                                            await Task.Delay(2000);
-                                        }
-                                        else
-                                            progressBar1.Increment(3);
-
-                                        start = false;
-                                        button1.Text = "Riavvia";
                                         progressBar1.Increment(1);
-                                    }
-                                    else
-                                    {
-                                        progressBar1.Value = 0;
-                                        progressBar1.Maximum = minuti;
+                                        await Task.Delay(5000);
 
-                                        for (int i = 0; i < minuti; i++)
+                                        Color coloreBottone = GetColorAt(coordX, coordY);
+
+                                        if (coloreBottone.R == 0 && coloreBottone.G == 121 && coloreBottone.B == 174)
                                         {
-                                            await Task.Delay(30000);
+                                            if (checkBox1.Checked == true)
+                                            {
+                                                SendKeys.Send("^e");
+
+                                                progressBar1.Increment(1);
+                                                await Task.Delay(1000);
+                                            }
+                                            else
+                                                progressBar1.Increment(1);
+
+                                            if (checkBox2.Checked == true)
+                                            {
+                                                SendKeys.Send("^d");
+
+                                                progressBar1.Increment(1);
+                                                await Task.Delay(1000);
+                                            }
+                                            else
+                                                progressBar1.Increment(1);
+
+                                            if (checkBox3.Checked == true)
+                                            {
+                                                LeftMouseClick(coordX, coordY);
+
+                                                progressBar1.Increment(1);
+                                                await Task.Delay(5000);
+                                            }
+                                            else
+                                                progressBar1.Increment(1);
+
+                                            if (checkBox4.Checked == true)
+                                            {
+                                                SendKeys.Send("^%c");
+
+                                                progressBar1.Increment(1);
+                                                await Task.Delay(2000);
+
+                                                SendKeys.SendWait(messaggio);
+                                                SendKeys.Send("{Enter}");
+
+                                                progressBar1.Increment(1);
+                                                await Task.Delay(2000);
+
+                                                SendKeys.Send("^%c");
+
+                                                progressBar1.Increment(1);
+                                                await Task.Delay(2000);
+                                            }
+                                            else
+                                                progressBar1.Increment(3);
+
+                                            start = false;
+                                            button1.Text = "Riavvia";
                                             progressBar1.Increment(1);
                                         }
-                                    }
-                                }
+                                        else
+                                        {
+                                            progressBar1.Value = 0;
+                                            progressBar1.Maximum = minuti;
 
-                                MessageBox.Show("Connesso!");
-                                MessageBox.Show("Idea by Misael Canova. Developed by Luca Giordano.");
+                                            for (int i = 0; i < minuti; i++)
+                                            {
+                                                await Task.Delay(30000);
+                                                progressBar1.Increment(1);
+                                            }
+                                        }
+                                    }
+
+                                    MessageBox.Show("Connesso!");
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+
+        private void calibratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (button1.Text == "STOP")
+                MessageBox.Show("Non avviare (Calibrator) mentre il programma è avviato.");
+            else
+            {
+                Form2 Calibrator = new Form2();
+                Calibrator.ShowDialog();
+            }
+        }
+
+        private void creditiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Idea by Misael Canova. Developed by Luca Giordano.");
         }
     }
 }

@@ -49,6 +49,9 @@ namespace automaticMeet
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.calibratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -56,6 +59,7 @@ namespace automaticMeet
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox5.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -298,11 +302,39 @@ namespace automaticMeet
             this.progressBar1.Size = new System.Drawing.Size(353, 25);
             this.progressBar1.TabIndex = 14;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.calibratorToolStripMenuItem,
+            this.creditiToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 337);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(381, 24);
+            this.menuStrip1.Stretch = false;
+            this.menuStrip1.TabIndex = 15;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // calibratorToolStripMenuItem
+            // 
+            this.calibratorToolStripMenuItem.Name = "calibratorToolStripMenuItem";
+            this.calibratorToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.calibratorToolStripMenuItem.Text = "Calibrator";
+            this.calibratorToolStripMenuItem.Click += new System.EventHandler(this.calibratorToolStripMenuItem_Click);
+            // 
+            // creditiToolStripMenuItem
+            // 
+            this.creditiToolStripMenuItem.Name = "creditiToolStripMenuItem";
+            this.creditiToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.creditiToolStripMenuItem.Text = "Crediti";
+            this.creditiToolStripMenuItem.Click += new System.EventHandler(this.creditiToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(381, 339);
+            this.ClientSize = new System.Drawing.Size(381, 361);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
@@ -310,12 +342,14 @@ namespace automaticMeet
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Form1";
-            this.Text = "Automatic Meet v3.2";
+            this.Text = "Automatic Meet v3.5";
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -326,7 +360,10 @@ namespace automaticMeet
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -350,6 +387,9 @@ namespace automaticMeet
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem calibratorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem creditiToolStripMenuItem;
     }
 }
 

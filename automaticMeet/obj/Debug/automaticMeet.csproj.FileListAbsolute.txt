@@ -19,3 +19,4 @@ C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\aut
 C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csproj.CoreCompileInputs.cache
 C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.exe
 C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.pdb
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\C#\automaticMeet\automaticMeet\obj\Debug\automaticMeet.Form2.resources
