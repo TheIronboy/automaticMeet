@@ -151,7 +151,7 @@ namespace automaticMeet
                                     button1.Text = "STOP";
 
                                     progressBar1.Value = 0;
-                                    progressBar1.Maximum = 10;
+                                    progressBar1.Maximum = 11;
 
                                     await Task.Delay(2000);
                                     Process processo = Process.Start("chrome");
@@ -165,10 +165,14 @@ namespace automaticMeet
                                     progressBar1.Increment(1);
                                     await Task.Delay(5000);
 
-                                    SendKeys.SendWait(classe);
-
                                     while (start == true)
                                     {
+                                        SendKeys.Send("^+r");
+
+                                        progressBar1.Increment(1);
+                                        await Task.Delay(5000);
+
+                                        SendKeys.SendWait(classe);
                                         SendKeys.Send("{Enter}");
 
                                         progressBar1.Increment(1);
@@ -264,6 +268,7 @@ namespace automaticMeet
                 Form2 Calibrator = new Form2();
                 Calibrator.ShowDialog();
             }
+
         }
 
         private void creditiToolStripMenuItem_Click(object sender, EventArgs e)
