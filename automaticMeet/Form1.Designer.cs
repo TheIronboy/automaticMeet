@@ -349,7 +349,7 @@ namespace automaticMeet
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Form1";
-            this.Text = "Automatic Meet v3.6";
+            this.Text = "Automatic Meet v4.0";
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

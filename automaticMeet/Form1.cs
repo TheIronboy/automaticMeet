@@ -53,8 +53,8 @@ namespace automaticMeet
         public async void button1_Click(object sender, EventArgs e)
         {
             bool start = true;
-            int coordX = 0, coordY = 0, minuti = 0;
             string classe = "", messaggio = "", url = "https://meet.google.com/landing?authuser=" + numericUpDown2.Value;
+            int coordX = 0, coordY = 0, colR = 0, colG = 0, colB = 0, minuti = 0;
 
             if (button1.Text == "STOP")
                 Application.Exit();
@@ -137,10 +137,23 @@ namespace automaticMeet
                                             else if (i == 1)
                                                 coordY = Convert.ToInt32(sr.ReadLine());
                                         }
+
+                                    using (StreamReader sr = File.OpenText(@"C:\automaticMeet\color.txt"))
+                                    {
+                                        for (int i = 0; i <= 2; i++)
+                                        {
+                                            if (i == 0)
+                                                colR = Convert.ToInt32(sr.ReadLine());
+                                            else if (i == 1)
+                                                colG = Convert.ToInt32(sr.ReadLine());
+                                            else if (i == 2)
+                                                colB = Convert.ToInt32(sr.ReadLine());
+                                        }
+                                    }
                                 }
                                 catch (Exception)
                                 {
-                                    MessageBox.Show("Coordinate da inizializzare, perfavore usa (Calibrator).");
+                                    MessageBox.Show("Coordinate e/o colori da inizializzare, perfavore usa (Calibrator).");
                                 }
 
                                 if (coordX != 0 && coordY != 0)
@@ -148,7 +161,7 @@ namespace automaticMeet
                                     button1.Text = "STOP";
 
                                     progressBar1.Value = 0;
-                                    progressBar1.Maximum = 11;
+                                    progressBar1.Maximum = 10;
 
                                     await Task.Delay(2000);
                                     Process processo = Process.Start("chrome");
@@ -159,8 +172,7 @@ namespace automaticMeet
                                     SendKeys.SendWait(url);
                                     SendKeys.Send("{Enter}");
 
-                                    progressBar1.Increment(1);
-                                    await Task.Delay(5000);
+                                    await Task.Delay(2000);
 
                                     while (start == true)
                                     {
@@ -175,9 +187,9 @@ namespace automaticMeet
                                         progressBar1.Increment(1);
                                         await Task.Delay(5000);
 
-                                        Color coloreBottone = GetColorAt(coordX, coordY);
+                                        Color colorFound = GetColorAt(coordX, coordY);
 
-                                        if (coloreBottone.R == 0 && coloreBottone.G == 121 && coloreBottone.B == 174)
+                                        if (colorFound.R == colR && colorFound.G == colG && colorFound.B == colB)
                                         {
                                             if (checkBox1.Checked == true)
                                             {
@@ -265,7 +277,6 @@ namespace automaticMeet
                 Form2 Calibrator = new Form2();
                 Calibrator.ShowDialog();
             }
-
         }
 
         private void creditiToolStripMenuItem_Click(object sender, EventArgs e)
