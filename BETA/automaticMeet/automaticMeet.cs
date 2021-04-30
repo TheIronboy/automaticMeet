@@ -71,7 +71,7 @@ namespace automaticMeet
             if (settingsFile[3] != null)
                 numericUpDown2.Value = Convert.ToInt32(settingsFile[3]);
             else
-                numericUpDown2.Value = 2;
+                numericUpDown2.Value = 5;
 
             checkBox1.Checked = Convert.ToBoolean(settingsFile[4]);
             checkBox2.Checked = Convert.ToBoolean(settingsFile[5]);
@@ -124,89 +124,188 @@ namespace automaticMeet
 
         public async void mainConnect(string email, string pass, string selectedCode, string messaggio, int speed)
         {
+            button1.Enabled = false;
+            progressBar1.Value = 0;
+            progressBar1.Maximum = 3;
+            
+            //crea instanza di chrome con impostazioni
+
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("start-maximized", "--disable-notifications", "use-fake-ui-for-media-stream");
 
             IWebDriver chrome = new ChromeDriver(options);
             chrome.Navigate().GoToUrl("https://meet.google.com/landing");
 
-            chrome.FindElement(By.Id("identifierId")).SendKeys(email + OpenQA.Selenium.Keys.Enter);
-            await Task.Delay(2000);
+            progressBar1.Increment(1);
 
-            chrome.FindElement(By.Name("password")).SendKeys(pass + OpenQA.Selenium.Keys.Enter);
-            await Task.Delay(5000);
+            // fase di login
+
+            try
+            {
+                chrome.FindElement(By.Id("identifierId")).SendKeys(email + OpenQA.Selenium.Keys.Enter);
+                await Task.Delay(2000);
+
+                progressBar1.Increment(1);
+
+                chrome.FindElement(By.Name("password")).SendKeys(pass + OpenQA.Selenium.Keys.Enter);
+                await Task.Delay(5000);
+
+                progressBar1.Increment(1);
+            }
+            catch (NoSuchElementException)
+            {
+                MessageBox.Show("Ho riscontrato un problema nella fase di login, assicurati di aver attivato l'impostazione (Consenti app meno sicure) (Non lo consiglio per gli account principali) e di aver disabilitato la verifica in due fattori nell'account google da cui stai facendo l'accesso. Usa questo link: https://myaccount.google.com/lesssecureapps");
+                button1.Enabled = true;
+                progressBar1.Value = 0;
+                return;
+            }
+
+            // entrata loop
 
             bool stop = false;
 
             while (stop == false)
             {
-                try
+                progressBar1.Value = 0;
+                progressBar1.Maximum = 7;
+                
+                // inserimento codice riunione
+
+                chrome.FindElement(By.Id("i3")).SendKeys(selectedCode + OpenQA.Selenium.Keys.Enter); ;
+                await Task.Delay(5000);
+
+                progressBar1.Increment(1);
+
+                if (checkBox4.Checked)
                 {
-                    chrome.FindElement(By.Id("i3")).SendKeys(selectedCode + OpenQA.Selenium.Keys.Enter); ;
-                    await Task.Delay(5000);
-
-                    if (checkBox2.Checked)
+                    try
                     {
-                        chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[4]/div[1]")).Click();
-                        await Task.Delay(1000);
-                    }
+                        // disattiva microfono
 
-                    if (checkBox3.Checked)
-                    {
-                        chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[4]/div[2]")).Click();
-                        await Task.Delay(1000);
-                    }
-
-                    chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]")).Click();
-                    await Task.Delay(5000);
-
-                    if (checkBox5.Checked)
-                    {
-                        chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[1]/div[3]/div/div[2]/div[3]")).Click();
-                        await Task.Delay(1000);
-
-                        chrome.FindElement(By.Name("chatTextInput")).SendKeys(messaggio + OpenQA.Selenium.Keys.Enter);
-                        await Task.Delay(1000);
-
-                        chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[4]/div/div[2]/div[1]/div[2]/div/span/button")).Click();
-                    }
-
-                    for (int timer = 1; timer <= 15; timer++)
-                        await Task.Delay(60000);
-
-                    bool quit = false;
-
-                    while (quit == false)
-                    {
-                        try
+                        if (checkBox2.Checked)
                         {
-                            int nPart = Convert.ToInt32(chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[1]/div[3]/div/div[2]/div[1]/span/span/div/div/span[2]")).Text), quitAt = Convert.ToInt32(numericUpDown2.Value);
+                            chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[4]/div[1]")).Click();
+                            await Task.Delay(1000);
 
-                            if (nPart <= quitAt)
+                            progressBar1.Increment(1);
+                        }
+                        else
+                            progressBar1.Increment(1);
+
+                        // disattiva camera
+
+                        if (checkBox3.Checked)
+                        {
+                            chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[4]/div[2]")).Click();
+                            await Task.Delay(1000);
+
+                            progressBar1.Increment(1);
+                        }
+                        else
+                            progressBar1.Increment(1);
+
+                        // clicca "partecipa"
+
+                        chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]")).Click();
+                        await Task.Delay(5000);
+
+                        progressBar1.Increment(1);
+
+                        // scrive messaggio in chat
+
+                        if (checkBox5.Checked)
+                        {
+                            chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[1]/div[3]/div/div[2]/div[3]")).Click();
+                            await Task.Delay(1000);
+
+                            progressBar1.Increment(1);
+
+                            chrome.FindElement(By.Name("chatTextInput")).SendKeys(messaggio + OpenQA.Selenium.Keys.Enter);
+                            await Task.Delay(1000);
+
+                            progressBar1.Increment(1);
+
+                            chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[4]/div/div[2]/div[1]/div[2]/div/span/button")).Click();
+
+                            progressBar1.Increment(1);
+                        }
+                        else
+                            progressBar1.Increment(3);
+
+                        // aspetta 15 minuti prima di iniziare a controllare il numero di partecipanti
+
+                        progressBar1.Value = 0;
+                        progressBar1.Maximum = 15;
+
+                        for (int timer = 1; timer <= 15; timer++)
+                        {
+                            await Task.Delay(60000);
+                            progressBar1.Increment(1);
+                        }
+
+                        progressBar1.Value = 1;
+                        progressBar1.Maximum = 2;
+
+                        // loop auto uscita
+
+                        bool quit = false;
+
+                        while (quit == false)
+                        {
+                            try
                             {
-                                quit = true;
-                                chrome.Navigate().GoToUrl("https://meet.google.com/landing");
+                                int nPart = Convert.ToInt32(chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[1]/div[3]/div/div[2]/div[1]/span/span/div/div/span[2]")).Text), quitAt = Convert.ToInt32(numericUpDown2.Value);
+
+                                if (nPart <= quitAt)
+                                {
+                                    quit = true;
+                                    chrome.Navigate().GoToUrl("https://meet.google.com/landing");
+
+                                    button1.Enabled = true;
+                                    progressBar1.Increment(1);
+
+                                    MessageBox.Show("Finito.");
+                                }
+                                else
+                                    await Task.Delay(1000);
                             }
-                            else
+                            catch (FormatException)
+                            {
                                 await Task.Delay(1000);
+                            }
                         }
-                        catch (FormatException)
-                        {
-                            await Task.Delay(5000);
-                        }
+
+                        stop = true;
                     }
+                    catch (NoSuchElementException)
+                    {
+                        chrome.Navigate().GoToUrl("https://meet.google.com/landing");
 
-                    stop = true;
+                        int minuti = Convert.ToInt32(numericUpDown1.Value);
+                        waitRetry(minuti);
+                    }
                 }
-                catch (NoSuchElementException)
+                else
                 {
-                    chrome.Navigate().GoToUrl("https://meet.google.com/landing");
-
                     int minuti = Convert.ToInt32(numericUpDown1.Value);
+                    waitRetry(minuti);
 
-                    for (int timer = 1; timer <= minuti * 2; timer++)
-                        await Task.Delay(30000);
+                    chrome.Navigate().GoToUrl("https://meet.google.com/landing");
                 }
+            }
+        }
+
+        public async void waitRetry(int minuti)
+        {
+            // timer per riprovare il collegamento se la riunione non è stata trovata o
+
+            progressBar1.Value = 0;
+            progressBar1.Maximum = minuti * 2;
+
+            for (int timer = 1; timer <= minuti * 2; timer++)
+            {
+                await Task.Delay(30000);
+                progressBar1.Increment(1);
             }
         }
 

@@ -98,16 +98,24 @@ namespace automaticMeet
                 }
                 else if (!Directory.Exists(@"C:\automaticMeet\" + inputUsername))
                 {
-                    Directory.CreateDirectory(@"C:\automaticMeet\" + inputUsername + @"\codes");
-
-                    using (StreamWriter sw = File.CreateText(@"C:\automaticMeet\" + inputUsername + @"\password.txt"))
+                    if (inputUsername.IndexOf('@') != -1 && inputUsername.IndexOf(' ') == -1)
                     {
-                        sw.WriteLine(inputPassword);
+                        Directory.CreateDirectory(@"C:\automaticMeet\" + inputUsername + @"\codes");
+
+                        using (StreamWriter sw = File.CreateText(@"C:\automaticMeet\" + inputUsername + @"\password.txt"))
+                        {
+                            sw.WriteLine(inputPassword);
+                        }
+
+                        File.Create(@"C:\automaticMeet\" + inputUsername + @"\settings.txt").Close();
+
+                        MessageBox.Show("Rilevato nuovo utente, benvenuto!");
                     }
-
-                    File.Create(@"C:\automaticMeet\" + inputUsername + @"\settings.txt").Close();
-
-                    MessageBox.Show("Rilevato nuovo utente, benvenuto!");
+                    else
+                    {
+                        MessageBox.Show("Inserisci una mail valida.");
+                        return;
+                    }
                 }
 
                 using (StreamWriter sw = File.CreateText(@"C:\automaticMeet\.session.txt"))

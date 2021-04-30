@@ -39,9 +39,9 @@ namespace automaticMeet
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(15, 102);
+            this.button1.Location = new System.Drawing.Point(12, 102);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 31);
+            this.button1.Size = new System.Drawing.Size(179, 31);
             this.button1.TabIndex = 35;
             this.button1.Text = "Create";
             this.button1.UseVisualStyleBackColor = true;
@@ -49,15 +49,15 @@ namespace automaticMeet
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(15, 74);
+            this.textBox1.Location = new System.Drawing.Point(12, 74);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(186, 22);
+            this.textBox1.Size = new System.Drawing.Size(306, 22);
             this.textBox1.TabIndex = 34;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 55);
+            this.label3.Location = new System.Drawing.Point(9, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 16);
             this.label3.TabIndex = 33;
@@ -66,7 +66,7 @@ namespace automaticMeet
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(9, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 16);
             this.label2.TabIndex = 32;
@@ -74,9 +74,9 @@ namespace automaticMeet
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(111, 102);
+            this.button2.Location = new System.Drawing.Point(197, 102);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 31);
+            this.button2.Size = new System.Drawing.Size(121, 31);
             this.button2.TabIndex = 36;
             this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
@@ -85,16 +85,16 @@ namespace automaticMeet
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(15, 28);
+            this.comboBox1.Location = new System.Drawing.Point(12, 28);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(186, 24);
+            this.comboBox1.Size = new System.Drawing.Size(306, 24);
             this.comboBox1.TabIndex = 43;
             // 
             // codeManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(215, 143);
+            this.ClientSize = new System.Drawing.Size(330, 143);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -105,7 +105,7 @@ namespace automaticMeet
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "codeManager";
-            this.Text = "Code Manager v1.3";
+            this.Text = "Code Manager v1.5";
             this.ResumeLayout(false);
             this.PerformLayout();
 

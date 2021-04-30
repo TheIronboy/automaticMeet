@@ -397,7 +397,7 @@ namespace automaticMeet
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "automaticMeet";
-            this.Text = "Automatic Meet v4.6";
+            this.Text = "Automatic Meet v4.7";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
