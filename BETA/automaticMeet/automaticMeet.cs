@@ -124,10 +124,10 @@ namespace automaticMeet
 
         public async void mainConnect(string email, string pass, string selectedCode, string messaggio, int speed)
         {
-            button1.Enabled = false;
             progressBar1.Value = 0;
             progressBar1.Maximum = 3;
-            
+            button1.Enabled = false;
+
             //crea instanza di chrome con impostazioni
 
             ChromeOptions options = new ChromeOptions();
@@ -143,12 +143,12 @@ namespace automaticMeet
             try
             {
                 chrome.FindElement(By.Id("identifierId")).SendKeys(email + OpenQA.Selenium.Keys.Enter);
-                await Task.Delay(2000);
+                await Task.Delay(2000 * speed);
 
                 progressBar1.Increment(1);
 
                 chrome.FindElement(By.Name("password")).SendKeys(pass + OpenQA.Selenium.Keys.Enter);
-                await Task.Delay(5000);
+                await Task.Delay(2000 * speed);
 
                 progressBar1.Increment(1);
             }
@@ -168,11 +168,11 @@ namespace automaticMeet
             {
                 progressBar1.Value = 0;
                 progressBar1.Maximum = 7;
-                
+
                 // inserimento codice riunione
 
                 chrome.FindElement(By.Id("i3")).SendKeys(selectedCode + OpenQA.Selenium.Keys.Enter); ;
-                await Task.Delay(5000);
+                await Task.Delay(5000 * speed);
 
                 progressBar1.Increment(1);
 
@@ -185,7 +185,7 @@ namespace automaticMeet
                         if (checkBox2.Checked)
                         {
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[4]/div[1]")).Click();
-                            await Task.Delay(1000);
+                            await Task.Delay(1000 * speed);
 
                             progressBar1.Increment(1);
                         }
@@ -197,7 +197,7 @@ namespace automaticMeet
                         if (checkBox3.Checked)
                         {
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[4]/div[2]")).Click();
-                            await Task.Delay(1000);
+                            await Task.Delay(1000 * speed);
 
                             progressBar1.Increment(1);
                         }
@@ -207,7 +207,7 @@ namespace automaticMeet
                         // clicca "partecipa"
 
                         chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]")).Click();
-                        await Task.Delay(5000);
+                        await Task.Delay(5000 * speed);
 
                         progressBar1.Increment(1);
 
@@ -216,12 +216,12 @@ namespace automaticMeet
                         if (checkBox5.Checked)
                         {
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[1]/div[3]/div/div[2]/div[3]")).Click();
-                            await Task.Delay(1000);
+                            await Task.Delay(1000 * speed);
 
                             progressBar1.Increment(1);
 
                             chrome.FindElement(By.Name("chatTextInput")).SendKeys(messaggio + OpenQA.Selenium.Keys.Enter);
-                            await Task.Delay(1000);
+                            await Task.Delay(1000 * speed);
 
                             progressBar1.Increment(1);
 
