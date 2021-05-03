@@ -6,12 +6,10 @@ namespace automaticMeet
 {
     public partial class Login : Form
     {
-        string[] sessionFile;
+        string[] sessionFile = new string[3];
 
-        public void getSession()
+        public void getSessionAndUserList()
         {
-            sessionFile = new string[3];
-
             using (StreamReader sr = File.OpenText(@"C:\automaticMeet\.session.txt"))
             {
                 for (int i = 0; i < sessionFile.Length; i++)
@@ -19,10 +17,7 @@ namespace automaticMeet
                     sessionFile[i] = sr.ReadLine();
                 }
             }
-        }
 
-        public void loadSettings()
-        {
             string[] foundDirectory = Directory.GetDirectories(@"C:\automaticMeet\");
 
             comboBox1.Items.Clear();
@@ -54,9 +49,7 @@ namespace automaticMeet
             if (!File.Exists(@"C:\automaticMeet\.session.txt"))
                 File.Create(@"C:\automaticMeet\.session.txt").Close();
 
-            getSession();
-
-            loadSettings();
+            getSessionAndUserList();
         }
 
         bool passShown = false;
@@ -158,8 +151,7 @@ namespace automaticMeet
 
                         File.Create(@"C:\automaticMeet\.session.txt").Close();
 
-                        getSession();
-                        loadSettings();
+                        getSessionAndUserList();
 
                         MessageBox.Show("Eliminato con successo!");
                     }

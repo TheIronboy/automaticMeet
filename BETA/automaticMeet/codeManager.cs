@@ -6,12 +6,10 @@ namespace automaticMeet
 {
     public partial class codeManager : Form
     {
-        string[] sessionFile;
+        string[] sessionFile = new string[3];
 
-        public void getSession()
+        public void getSessionAndCodes()
         {
-            sessionFile = new string[3];
-
             using (StreamReader sr = File.OpenText(@"C:\automaticMeet\.session.txt"))
             {
                 for (int i = 0; i < sessionFile.Length; i++)
@@ -19,10 +17,7 @@ namespace automaticMeet
                     sessionFile[i] = sr.ReadLine();
                 }
             }
-        }
 
-        public void loadSettings()
-        {
             string[] fileEntries = Directory.GetFiles(@"C:\automaticMeet\" + sessionFile[0] + @"\codes");
 
             comboBox1.Items.Clear();
@@ -35,9 +30,7 @@ namespace automaticMeet
         {
             InitializeComponent();
 
-            getSession();
-
-            loadSettings();
+            getSessionAndCodes();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -74,7 +67,7 @@ namespace automaticMeet
                 {
                     File.Delete(@"C:\automaticMeet\" + sessionFile[0] + @"\codes\" + codeName + ".txt");
 
-                    loadSettings();
+                    getSessionAndCodes();
 
                     MessageBox.Show("Eliminato con successo!");
 

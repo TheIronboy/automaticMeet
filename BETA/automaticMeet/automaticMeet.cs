@@ -9,39 +9,17 @@ namespace automaticMeet
 {
     public partial class automaticMeet : Form
     {
-        string[] sessionFile;
+        string[] sessionFile = new string[3];
 
-        public void getSession()
+        public void getSessionAndCodes()
         {
             //carica nome utente loggato
-
-            sessionFile = new string[3];
 
             using (StreamReader sr = File.OpenText(@"C:\automaticMeet\.session.txt"))
             {
                 for (int i = 0; i < sessionFile.Length; i++)
                 {
                     sessionFile[i] = sr.ReadLine();
-                }
-            }
-        }
-
-        string[] settingsFile;
-
-        public void loadSettings()
-        {
-            //carica file settings.txt dell'utente loggato
-
-            settingsFile = new string[14];
-
-            if (File.Exists(@"C:\automaticMeet\" + sessionFile[0] + @"\settings.txt"))
-            {
-                using (StreamReader sr = File.OpenText(@"C:\automaticMeet\" + sessionFile[0] + @"\settings.txt"))
-                {
-                    for (int i = 0; i < settingsFile.Length; i++)
-                    {
-                        settingsFile[i] = sr.ReadLine();
-                    }
                 }
             }
 
@@ -53,6 +31,24 @@ namespace automaticMeet
 
             foreach (string fileName in fileEntries)
                 comboBox1.Items.Add(Path.GetFileName(fileName.Remove(fileName.Length - 4)));
+        }
+
+        string[] settingsFile = new string[14];
+
+        public void loadSettings()
+        {
+            //carica file settings.txt dell'utente loggato
+
+            if (File.Exists(@"C:\automaticMeet\" + sessionFile[0] + @"\settings.txt"))
+            {
+                using (StreamReader sr = File.OpenText(@"C:\automaticMeet\" + sessionFile[0] + @"\settings.txt"))
+                {
+                    for (int i = 0; i < settingsFile.Length; i++)
+                    {
+                        settingsFile[i] = sr.ReadLine();
+                    }
+                }
+            }
 
             //carica file settings.txt
 
@@ -282,30 +278,32 @@ namespace automaticMeet
                         chrome.Navigate().GoToUrl("https://meet.google.com/landing");
 
                         int minuti = Convert.ToInt32(numericUpDown1.Value);
-                        waitRetry(minuti);
+
+                        progressBar1.Value = 0;
+                        progressBar1.Maximum = minuti * 2;
+
+                        for (int timer = 1; timer <= minuti * 2; timer++)
+                        {
+                            await Task.Delay(30000);
+                            progressBar1.Increment(1);
+                        }
                     }
                 }
                 else
                 {
                     int minuti = Convert.ToInt32(numericUpDown1.Value);
-                    waitRetry(minuti);
+
+                    progressBar1.Value = 0;
+                    progressBar1.Maximum = minuti * 2;
+
+                    for (int timer = 1; timer <= minuti * 2; timer++)
+                    {
+                        await Task.Delay(30000);
+                        progressBar1.Increment(1);
+                    }
 
                     chrome.Navigate().GoToUrl("https://meet.google.com/landing");
                 }
-            }
-        }
-
-        public async void waitRetry(int minuti)
-        {
-            // timer per riprovare il collegamento se la riunione non è stata trovata o
-
-            progressBar1.Value = 0;
-            progressBar1.Maximum = minuti * 2;
-
-            for (int timer = 1; timer <= minuti * 2; timer++)
-            {
-                await Task.Delay(30000);
-                progressBar1.Increment(1);
             }
         }
 
@@ -313,7 +311,7 @@ namespace automaticMeet
         {
             InitializeComponent();
 
-            getSession();
+            getSessionAndCodes();
 
             loadSettings();
         }
@@ -361,7 +359,7 @@ namespace automaticMeet
                     return;
                 }
 
-                // carica la velocità selezionata (NON IMPLEMENTATA)
+                // carica la velocità selezionata
 
                 int speed = 0;
                 if (radioButton1.Checked)
@@ -394,7 +392,7 @@ namespace automaticMeet
             Form codeManager = new codeManager();
             codeManager.ShowDialog();
 
-            loadSettings();
+            getSessionAndCodes();
         }
 
         int i = 0;
