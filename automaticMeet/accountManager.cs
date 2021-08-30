@@ -4,69 +4,61 @@ using System.Windows.Forms;
 
 namespace automaticMeet
 {
-    public partial class Login : Form
+    public partial class accountManager : Form
     {
-        string[] sessionFile = new string[3];
+        publicFunctions publicFunctionsRef = new publicFunctions();
 
-        public void getSessionAndUserList()
+        public accountManager()
         {
-            using (StreamReader sr = File.OpenText(@"C:\automaticMeet\.session.txt"))
-            {
-                for (int i = 0; i < sessionFile.Length; i++)
-                {
-                    sessionFile[i] = sr.ReadLine();
-                }
-            }
+            InitializeComponent();
+        }
 
+        private void getUserListAndLoginData(string[] sessionData, ComboBox usersList, TextBox passwordText, CheckBox rememberMe)
+        {
             string[] foundDirectory = Directory.GetDirectories(@"C:\automaticMeet\");
 
-            comboBox1.Items.Clear();
+            usersList.Items.Clear();
 
             foreach (string directoryName in foundDirectory)
-                comboBox1.Items.Add(Path.GetFileName(directoryName));
+                usersList.Items.Add(Path.GetFileName(directoryName));
 
-            if (Directory.Exists(@"C:\automaticMeet\" + sessionFile[0]) && sessionFile[2] == "True")
+            if (Directory.Exists(@"C:\automaticMeet\" + sessionData[0]) && sessionData[2] == "True")
             {
-                comboBox1.Text = sessionFile[0];
-                textBox1.Text = sessionFile[1];
-                checkBox1.Checked = true;
+                usersList.Text = sessionData[0];
+                passwordText.Text = sessionData[1];
+                rememberMe.Checked = true;
             }
             else
             {
                 File.Create(@"C:\automaticMeet\.session.txt").Close();
-                comboBox1.Text = "";
-                textBox1.Text = "";
+                usersList.Text = "";
+                passwordText.Text = "";
             }
         }
 
-        public Login()
+        private void Login_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
-
             if (!Directory.Exists(@"C:\automaticMeet"))
                 Directory.CreateDirectory(@"C:\automaticMeet");
 
             if (!File.Exists(@"C:\automaticMeet\.session.txt"))
                 File.Create(@"C:\automaticMeet\.session.txt").Close();
 
-            getSessionAndUserList();
+            publicFunctionsRef.getSessionFile();
+            getUserListAndLoginData(publicFunctionsRef.sessionFile, comboBox1, textBox1, checkBox1);
         }
-
-        bool passShown = false;
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!passShown)
+            if (textBox1.UseSystemPasswordChar == false)
             {
-                passShown = true;
-                textBox1.UseSystemPasswordChar = false;
-                button1.Text = "Hide";
-            }
-            else if (passShown)
-            {
-                passShown = false;
                 textBox1.UseSystemPasswordChar = true;
                 button1.Text = "Show";
+            }
+            else if (textBox1.UseSystemPasswordChar == true)
+            {
+                textBox1.UseSystemPasswordChar = false;
+                button1.Text = "Hide";
             }
         }
 
@@ -76,11 +68,14 @@ namespace automaticMeet
             {
                 string inputUsername = comboBox1.Text, inputPassword = textBox1.Text, filePassword = "";
 
+                inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, inputPassword);
+
                 if (Directory.Exists(@"C:\automaticMeet\" + inputUsername))
                 {
-                    using (StreamReader sr = File.OpenText(@"C:\automaticMeet\" + inputUsername + @"\password.txt"))
+                    using (StreamReader file = File.OpenText(@"C:\automaticMeet\" + inputUsername + @"\password.txt"))
                     {
-                        filePassword = sr.ReadLine();
+                        filePassword = file.ReadLine();
+                        file.Close();
                     }
 
                     if (inputPassword != filePassword)
@@ -93,14 +88,13 @@ namespace automaticMeet
                 {
                     if (inputUsername.IndexOf('@') != -1 && inputUsername.IndexOf(' ') == -1)
                     {
-                        Directory.CreateDirectory(@"C:\automaticMeet\" + inputUsername + @"\codes");
+                        Directory.CreateDirectory(@"C:\automaticMeet\" + inputUsername);
 
-                        using (StreamWriter sw = File.CreateText(@"C:\automaticMeet\" + inputUsername + @"\password.txt"))
+                        using (StreamWriter file = File.CreateText(@"C:\automaticMeet\" + inputUsername + @"\password.txt"))
                         {
-                            sw.WriteLine(inputPassword);
+                            file.WriteLine(inputPassword);
+                            file.Close();
                         }
-
-                        File.Create(@"C:\automaticMeet\" + inputUsername + @"\settings.txt").Close();
 
                         MessageBox.Show("Rilevato nuovo utente, benvenuto!");
                     }
@@ -111,22 +105,23 @@ namespace automaticMeet
                     }
                 }
 
-                using (StreamWriter sw = File.CreateText(@"C:\automaticMeet\.session.txt"))
+                using (StreamWriter file = File.CreateText(@"C:\automaticMeet\.session.txt"))
                 {
-                    sw.WriteLine(inputUsername);
-                    sw.WriteLine(inputPassword);
+                    file.WriteLine(inputUsername);
+                    file.WriteLine(inputPassword);
 
                     if (checkBox1.Checked)
-                        sw.WriteLine("True");
+                        file.WriteLine("True");
                     else if (!checkBox1.Checked)
-                        sw.WriteLine("False");
+                        file.WriteLine("False");
+
+                    file.Close();
                 }
 
                 this.Hide();
-                Form automaticMeet = new automaticMeet();
-
-                automaticMeet.Closed += (s, args) => this.Close();
-                automaticMeet.Show();
+                automaticMeet automaticMeetRef = new automaticMeet();
+                automaticMeetRef.Closed += (s, args) => this.Close();
+                automaticMeetRef.Show();
             }
             else
                 MessageBox.Show("Riempi tutti i campi.");
@@ -137,22 +132,22 @@ namespace automaticMeet
             if (comboBox1.Text != "" && textBox1.Text != "")
             {
                 string inputUsername = comboBox1.Text, inputPassword = textBox1.Text, filePassword = "";
+                inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, inputPassword);
 
                 if (Directory.Exists(@"C:\automaticMeet\" + inputUsername))
                 {
-                    using (StreamReader sr = File.OpenText(@"C:\automaticMeet\" + inputUsername + @"\password.txt"))
+                    using (StreamReader file = File.OpenText(@"C:\automaticMeet\" + inputUsername + @"\password.txt"))
                     {
-                        filePassword = sr.ReadLine();
+                        filePassword = file.ReadLine();
+                        file.Close();
                     }
 
                     if (inputPassword == filePassword)
                     {
                         Directory.Delete(@"C:\automaticMeet\" + inputUsername, true);
-
                         File.Create(@"C:\automaticMeet\.session.txt").Close();
 
-                        getSessionAndUserList();
-
+                        getUserListAndLoginData(publicFunctionsRef.sessionFile, comboBox1, textBox1, checkBox1);
                         MessageBox.Show("Eliminato con successo!");
                     }
                     else

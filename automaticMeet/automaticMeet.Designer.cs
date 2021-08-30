@@ -46,15 +46,15 @@ namespace automaticMeet
             this.gestisciCodiciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.programmaMessaggiOrariToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.creditiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.killChromeDriverexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -120,6 +120,7 @@ namespace automaticMeet
             this.checkBox5.TabIndex = 14;
             this.checkBox5.Text = "Messaggio in chat";
             this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // textBox1
             // 
@@ -235,8 +236,8 @@ namespace automaticMeet
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestisciCodiciToolStripMenuItem,
             this.programmaMessaggiOrariToolStripMenuItem,
-            this.creditiToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.killChromeDriverexeToolStripMenuItem,
+            this.creditiToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 293);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -255,8 +256,8 @@ namespace automaticMeet
             // programmaMessaggiOrariToolStripMenuItem
             // 
             this.programmaMessaggiOrariToolStripMenuItem.Name = "programmaMessaggiOrariToolStripMenuItem";
-            this.programmaMessaggiOrariToolStripMenuItem.Size = new System.Drawing.Size(172, 20);
-            this.programmaMessaggiOrariToolStripMenuItem.Text = "Programma Messaggi / Orari";
+            this.programmaMessaggiOrariToolStripMenuItem.Size = new System.Drawing.Size(190, 20);
+            this.programmaMessaggiOrariToolStripMenuItem.Text = "Programma Riunioni / Messaggi";
             this.programmaMessaggiOrariToolStripMenuItem.Click += new System.EventHandler(this.programmaMessaggiOrariToolStripMenuItem_Click);
             // 
             // creditiToolStripMenuItem
@@ -265,13 +266,6 @@ namespace automaticMeet
             this.creditiToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.creditiToolStripMenuItem.Text = "Crediti";
             this.creditiToolStripMenuItem.Click += new System.EventHandler(this.creditiToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // checkBox1
             // 
@@ -284,6 +278,7 @@ namespace automaticMeet
             this.checkBox1.TabIndex = 16;
             this.checkBox1.Text = "Aggiungi \"  --                                 \"";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -332,16 +327,16 @@ namespace automaticMeet
             this.label1.TabIndex = 23;
             this.label1.Text = "Riprova ogni                  minuto/i";
             // 
-            // radioButton1
+            // radioButton3
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.radioButton1.Location = new System.Drawing.Point(159, 27);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(69, 20);
-            this.radioButton1.TabIndex = 27;
-            this.radioButton1.Text = "Veloce";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.radioButton3.Location = new System.Drawing.Point(159, 27);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(69, 20);
+            this.radioButton3.TabIndex = 27;
+            this.radioButton3.Text = "Veloce";
+            this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton2
             // 
@@ -356,21 +351,21 @@ namespace automaticMeet
             this.radioButton2.Text = "Normale";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // radioButton1
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.radioButton3.Location = new System.Drawing.Point(10, 27);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(59, 20);
-            this.radioButton3.TabIndex = 25;
-            this.radioButton3.Text = "Lento";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.radioButton1.Location = new System.Drawing.Point(10, 27);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(59, 20);
+            this.radioButton1.TabIndex = 25;
+            this.radioButton1.Text = "Lento";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioButton3);
             this.groupBox3.Controls.Add(this.radioButton1);
+            this.groupBox3.Controls.Add(this.radioButton3);
             this.groupBox3.Controls.Add(this.radioButton2);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(252, 103);
@@ -381,6 +376,13 @@ namespace automaticMeet
             this.groupBox3.TabIndex = 30;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Velocità:";
+            // 
+            // killChromeDriverexeToolStripMenuItem
+            // 
+            this.killChromeDriverexeToolStripMenuItem.Name = "killChromeDriverexeToolStripMenuItem";
+            this.killChromeDriverexeToolStripMenuItem.Size = new System.Drawing.Size(133, 20);
+            this.killChromeDriverexeToolStripMenuItem.Text = "Kill ChromeDriver.exe";
+            this.killChromeDriverexeToolStripMenuItem.Click += new System.EventHandler(this.killChromeDriverexeToolStripMenuItem_Click);
             // 
             // automaticMeet
             // 
@@ -398,8 +400,10 @@ namespace automaticMeet
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.MaximizeBox = false;
             this.Name = "automaticMeet";
-            this.Text = "Automatic Meet v4.7";
+            this.Text = "automaticMeet v5.0";
+            this.Load += new System.EventHandler(this.automaticMeet_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -416,31 +420,31 @@ namespace automaticMeet
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem creditiToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem gestisciCodiciToolStripMenuItem;
-        private System.Windows.Forms.DomainUpDown domainUpDown1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ToolStripMenuItem programmaMessaggiOrariToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.ComboBox comboBox1;
+        public System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        public System.Windows.Forms.DomainUpDown domainUpDown1;
+        private System.Windows.Forms.ToolStripMenuItem killChromeDriverexeToolStripMenuItem;
     }
 }
 

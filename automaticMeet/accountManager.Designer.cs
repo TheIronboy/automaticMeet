@@ -1,7 +1,7 @@
 ﻿
 namespace automaticMeet
 {
-    partial class Login
+    partial class accountManager
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@ namespace automaticMeet
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(accountManager));
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -57,9 +58,9 @@ namespace automaticMeet
             this.checkBox1.Location = new System.Drawing.Point(13, 105);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(117, 20);
+            this.checkBox1.Size = new System.Drawing.Size(89, 20);
             this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "Remember me";
+            this.checkBox1.Text = "Ricordami";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // button2
@@ -79,9 +80,9 @@ namespace automaticMeet
             this.label2.Location = new System.Drawing.Point(10, 55);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 16);
+            this.label2.Size = new System.Drawing.Size(119, 16);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Password:";
+            this.label2.Text = "Password Google:";
             // 
             // label1
             // 
@@ -121,7 +122,7 @@ namespace automaticMeet
             this.comboBox1.Size = new System.Drawing.Size(258, 24);
             this.comboBox1.TabIndex = 32;
             // 
-            // Login
+            // accountManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -136,9 +137,12 @@ namespace automaticMeet
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Login";
-            this.Text = "Google Login v1.5";
+            this.MaximizeBox = false;
+            this.Name = "accountManager";
+            this.Text = "accountManager v2.0";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

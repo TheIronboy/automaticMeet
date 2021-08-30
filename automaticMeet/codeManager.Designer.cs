@@ -29,6 +29,7 @@ namespace automaticMeet
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(codeManager));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -59,18 +60,18 @@ namespace automaticMeet
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 55);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 16);
+            this.label3.Size = new System.Drawing.Size(54, 16);
             this.label3.TabIndex = 33;
-            this.label3.Text = "Code:";
+            this.label3.Text = "Codice:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(9, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 16);
+            this.label2.Size = new System.Drawing.Size(131, 16);
             this.label2.TabIndex = 32;
-            this.label2.Text = "Name:";
+            this.label2.Text = "Nome della riunione:";
             // 
             // button2
             // 
@@ -103,9 +104,12 @@ namespace automaticMeet
             this.Controls.Add(this.label2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "codeManager";
-            this.Text = "Code Manager v1.5";
+            this.Text = "codeManager v2.0";
+            this.Load += new System.EventHandler(this.codeManager_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -6,31 +6,26 @@ namespace automaticMeet
 {
     public partial class codeManager : Form
     {
-        string[] sessionFile = new string[3];
-
-        public void getSessionAndCodes()
-        {
-            using (StreamReader sr = File.OpenText(@"C:\automaticMeet\.session.txt"))
-            {
-                for (int i = 0; i < sessionFile.Length; i++)
-                {
-                    sessionFile[i] = sr.ReadLine();
-                }
-            }
-
-            string[] fileEntries = Directory.GetFiles(@"C:\automaticMeet\" + sessionFile[0] + @"\codes");
-
-            comboBox1.Items.Clear();
-
-            foreach (string fileName in fileEntries)
-                comboBox1.Items.Add(Path.GetFileName(fileName.Remove(fileName.Length - 4)));
-        }
+        publicFunctions publicFunctionsRef = new publicFunctions();
 
         public codeManager()
         {
             InitializeComponent();
+        }
 
-            getSessionAndCodes();
+        private void codeManager_Load(object sender, EventArgs e)
+        {
+            publicFunctionsRef.getSessionFile();
+
+            if (!Directory.Exists((@"C:\automaticMeet\" + publicFunctionsRef.sessionFile[0] + @"\codes")))
+                Directory.CreateDirectory(@"C:\automaticMeet\" + publicFunctionsRef.sessionFile[0] + @"\codes");
+            else
+            {
+                publicFunctionsRef.getCodesList(publicFunctionsRef.sessionFile, comboBox1);
+
+                comboBox1.Text = "";
+                textBox1.Text = "";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,15 +34,15 @@ namespace automaticMeet
             {
                 string codeName = comboBox1.Text, actualCode = textBox1.Text;
 
-                if (!File.Exists(@"C:\automaticMeet\" + sessionFile[0] + @"\codes\" + codeName + ".txt"))
+                if (!File.Exists(@"C:\automaticMeet\" + publicFunctionsRef.sessionFile[0] + @"\codes\" + codeName + ".txt"))
                 {
-                    using (StreamWriter sw = File.CreateText(@"C:\automaticMeet\" + sessionFile[0] + @"\codes\" + codeName + ".txt"))
+                    using (StreamWriter file = File.CreateText(@"C:\automaticMeet\" + publicFunctionsRef.sessionFile[0] + @"\codes\" + codeName + ".txt"))
                     {
-                        sw.WriteLine(actualCode);
+                        file.WriteLine(actualCode);
+                        file.Close();
                     }
 
                     MessageBox.Show("Codice creato con successo!");
-
                     this.Close();
                 }
                 else
@@ -63,14 +58,11 @@ namespace automaticMeet
             {
                 string codeName = comboBox1.Text;
 
-                if (File.Exists(@"C:\automaticMeet\" + sessionFile[0] + @"\codes\" + codeName + ".txt"))
+                if (File.Exists(@"C:\automaticMeet\" + publicFunctionsRef.sessionFile[0] + @"\codes\" + codeName + ".txt"))
                 {
-                    File.Delete(@"C:\automaticMeet\" + sessionFile[0] + @"\codes\" + codeName + ".txt");
-
-                    getSessionAndCodes();
+                    File.Delete(@"C:\automaticMeet\" + publicFunctionsRef.sessionFile[0] + @"\codes\" + codeName + ".txt");
 
                     MessageBox.Show("Eliminato con successo!");
-
                     this.Close();
                 }
                 else
