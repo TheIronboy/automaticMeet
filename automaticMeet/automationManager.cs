@@ -211,7 +211,7 @@ namespace automaticMeet
                         automaticMeetRef.checkBoxes[4].Checked = false;
                     }
 
-                    //nascondere automaticmeet e mostra background icon
+                    //nascondere automaticmeet e mostra background icon (futuro update ;))
 
                     while (true)
                     {
