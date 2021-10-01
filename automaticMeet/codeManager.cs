@@ -7,7 +7,6 @@ namespace automaticMeet
     public partial class codeManager : Form
     {
         publicFunctions publicFunctionsRef = new publicFunctions();
-
         string codeDir;
 
         public codeManager()
@@ -17,7 +16,7 @@ namespace automaticMeet
 
         private void codeManager_Load(object sender, EventArgs e)
         {
-            codeDir = publicFunctionsRef.mainDir + @"\" + publicFunctionsRef.getSessionData()[0] + @"\codes";
+            codeDir = publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"\codes\";
             publicFunctionsRef.getCodeList(comboBox1);
 
             comboBox1.Text = "";
@@ -28,7 +27,7 @@ namespace automaticMeet
         {
             if (comboBox1.Text != "" && textBox1.Text != "")
             {
-                string codeName = comboBox1.Text, actualCode = textBox1.Text, codeFile = codeDir + @"\" + codeName + ".txt";
+                string codeName = comboBox1.Text, actualCode = textBox1.Text, codeFile = codeDir + codeName + ".txt";
 
                 if (!File.Exists(codeFile))
                 {
@@ -52,7 +51,7 @@ namespace automaticMeet
         {
             if (comboBox1.Text != "")
             {
-                string codeName = comboBox1.Text, codeFile = codeDir + @"\" + codeName + ".txt"; ;
+                string codeName = comboBox1.Text, codeFile = codeDir + codeName + ".txt"; ;
 
                 if (File.Exists(codeFile))
                 {

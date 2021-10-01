@@ -29,7 +29,6 @@ namespace automaticMeet
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(automaticMeet));
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -56,7 +55,6 @@ namespace automaticMeet
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -386,11 +384,6 @@ namespace automaticMeet
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Velocità:";
             // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "automaticMeet";
-            this.notifyIcon1.Visible = true;
-            // 
             // automaticMeet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -452,7 +445,6 @@ namespace automaticMeet
         private System.Windows.Forms.CheckBox checkBox1;
         public System.Windows.Forms.DomainUpDown domainUpDown1;
         private System.Windows.Forms.ToolStripMenuItem killChromeDriverexeToolStripMenuItem;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 

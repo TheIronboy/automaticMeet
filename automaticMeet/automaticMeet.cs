@@ -10,8 +10,7 @@ namespace automaticMeet
     public partial class automaticMeet : Form
     {
         publicFunctions publicFunctionsRef = new publicFunctions();
-
-        string settingsFile;
+        public string automaticMeetSettingsFile;
 
         public bool isAutomated = false;
         public IWebDriver chrome;
@@ -47,9 +46,12 @@ namespace automaticMeet
 
                 progressBar1.Value = 0;
                 button1.Enabled = modeToSet;
+                this.ControlBox = modeToSet;
             }
             else if (isAutomated && modeToSet == true)
             {
+                this.ControlBox = false;
+
                 domainUpDown1.Enabled = false;
                 textBox1.Enabled = false;
 
@@ -80,7 +82,7 @@ namespace automaticMeet
         {
             string[] settingsData = new string[13];
 
-            using (StreamReader file = File.OpenText(settingsFile))
+            using (StreamReader file = File.OpenText(automaticMeetSettingsFile))
             {
                 for (int i = 0; i < settingsData.Length; i++)
                 {
@@ -145,7 +147,7 @@ namespace automaticMeet
                 cont++;
             }
 
-            using (StreamWriter file = File.CreateText(settingsFile))
+            using (StreamWriter file = File.CreateText(automaticMeetSettingsFile))
             {
                 for (int i = 0; i < settingsData.Length; i++)
                 {
@@ -357,12 +359,11 @@ namespace automaticMeet
         private void automaticMeet_Load(object sender, EventArgs e)
         {
             setMode(isAutomated, true);
-
-            settingsFile = publicFunctionsRef.mainDir + @"\" + publicFunctionsRef.getSessionData()[0] + @"\automaticMeetSettings.txt";
-
             publicFunctionsRef.getCodeList(comboBox1);
 
-            if (!File.Exists(settingsFile) && !isAutomated)
+            automaticMeetSettingsFile = publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"\automaticMeetSettings.txt";
+
+            if (!File.Exists(automaticMeetSettingsFile) && !isAutomated)
                 saveAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
             else
                 loadAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
@@ -377,7 +378,7 @@ namespace automaticMeet
 
             if (comboBox1.Text != "")
             {
-                using (StreamReader file = File.OpenText(publicFunctionsRef.mainDir + @"\" + publicFunctionsRef.getSessionData()[0] + @"\codes\" + comboBox1.Text + ".txt"))
+                using (StreamReader file = File.OpenText(publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"\codes\" + comboBox1.Text + ".txt"))
                 {
                     selectedCode = file.ReadLine();
                     file.Close();
@@ -472,7 +473,10 @@ namespace automaticMeet
                 chrome.Quit();
                 chrome = null;
 
+                forceTerminate = true;
+
                 MessageBox.Show("Chrome terminato.");
+                this.Close();
             }
             else if (!isAutomated && chrome == null)
                 MessageBox.Show("ChromeDriver non inizializzato.");

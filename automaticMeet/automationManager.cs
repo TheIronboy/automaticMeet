@@ -8,8 +8,10 @@ namespace automaticMeet
     public partial class automationManager : Form
     {
         publicFunctions publicFunctionsRef = new publicFunctions();
+        string automationsSettingsFile;
 
-        string settingsFile;
+        automaticMeet automaticMeetRef;
+        bool isHidden = true;
 
         CheckBox[] enabledCheckBoxes, addStringCheckBoxes;
         NumericUpDown[] numericUpDownsHours, numericUpDownsMinutes;
@@ -84,7 +86,7 @@ namespace automaticMeet
         {
             string[,] settingsData = new string[10, 6];
 
-            using (StreamReader file = File.OpenText(settingsFile))
+            using (StreamReader file = File.OpenText(automationsSettingsFile))
             {
                 for (int i = 0; i < settingsData.GetLength(0); i++)
                     for (int k = 0; k < settingsData.GetLength(1); k++)
@@ -119,7 +121,7 @@ namespace automaticMeet
                 settingsData[i, 5] = textBoxes[i].Text;
             }
 
-            using (StreamWriter file = File.CreateText(settingsFile))
+            using (StreamWriter file = File.CreateText(automationsSettingsFile))
             {
                 for (int i = 0; i < settingsData.GetLength(0); i++)
                     for (int k = 0; k < settingsData.GetLength(1); k++)
@@ -131,7 +133,7 @@ namespace automaticMeet
 
         private void automationManager_Load(object sender, EventArgs e)
         {
-            settingsFile = publicFunctionsRef.mainDir + @"\" + publicFunctionsRef.getSessionData()[0] + @"\automationsSettings.txt";
+            automationsSettingsFile = publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"\automationsSettings.txt";
 
             for (int i = 0; i < enabledCheckBoxes.Length; i++)
             {
@@ -139,7 +141,7 @@ namespace automaticMeet
                 setAutomationsStatus(enabledCheckBoxes[i], addStringCheckBoxes[i], numericUpDownsHours[i], numericUpDownsMinutes[i], comboBoxes[i], domainUpDowns[i], textBoxes[i]);
             }
 
-            if (!File.Exists(settingsFile))
+            if (!File.Exists(automationsSettingsFile))
                 saveAutomationsSettings(enabledCheckBoxes, addStringCheckBoxes, numericUpDownsHours, numericUpDownsMinutes, comboBoxes, domainUpDowns, textBoxes);
             else
                 loadAutomationsSettings(enabledCheckBoxes, addStringCheckBoxes, numericUpDownsHours, numericUpDownsMinutes, comboBoxes, domainUpDowns, textBoxes);
@@ -160,13 +162,13 @@ namespace automaticMeet
                     {
                         if (comboBox.Enabled && comboBox.Text == "")
                         {
-                            MessageBox.Show("Seleziona il codice della riunione.");
+                            MessageBox.Show("Seleziona un codice valido oppure creane uno nuovo.");
                             return;
                         }
 
                         if (domainUpDown.Enabled && checkBox.Checked && domainUpDown.Text == "")
                         {
-                            MessageBox.Show("Inserisci la stringa da aggiungere");
+                            MessageBox.Show("Inserisci una stringa da aggiungere.");
                             return;
                         }
                     }
@@ -186,7 +188,7 @@ namespace automaticMeet
             {
                 if (enabledCheckBoxes[i].Checked)
                 {
-                    automaticMeet automaticMeetRef = new automaticMeet();
+                    automaticMeetRef = new automaticMeet();
                     automaticMeetRef.isAutomated = true;
                     automaticMeetRef.Show();
 
@@ -211,7 +213,8 @@ namespace automaticMeet
                         automaticMeetRef.checkBoxes[4].Checked = false;
                     }
 
-                    //nascondere automaticmeet e mostra background icon (futuro update ;))
+                    automaticMeetRef.Hide();
+                    notifyIcon1.Visible = true;
 
                     while (true)
                     {
@@ -220,6 +223,9 @@ namespace automaticMeet
 
                         if (DateTime.Now.Hour == numericUpDownsHours[i].Value && DateTime.Now.Minute >= numericUpDownsMinutes[i].Value)
                         {
+                            if (isHidden)
+                                automaticMeetRef.Show();
+
                             automaticMeetRef.button1_Click(e, e);
 
                             while (true)
@@ -248,6 +254,22 @@ namespace automaticMeet
             codeManagerRef.ShowDialog();
 
             automationManager_Load(e, e);
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (isHidden && !automaticMeetRef.forceTerminate)
+            {
+                automaticMeetRef.Show();
+                isHidden = false;
+            }
+            else if (!isHidden && !automaticMeetRef.forceTerminate)
+            {
+                automaticMeetRef.Hide();
+                isHidden = true;
+            }
+            else
+                MessageBox.Show("Automazione terminata forzatamente, impossibile aprire." + Environment.NewLine + "Terminazione dei processi in corso...");
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

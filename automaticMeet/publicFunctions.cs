@@ -8,16 +8,15 @@ namespace automaticMeet
 {
     class publicFunctions
     {
-        public string mainDir = @"C:\automaticMeet";
-        public string sessionFile = @"C:\automaticMeet\.session.txt";
-
+        public string mainDir = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\automaticMeet\";
         public string encryptionKey = "705ea6d9231f38e4484fcf8be5a1aa5d";
 
         public string[] getSessionData()
         {
             string[] sessionData = new string[3];
+            string sessionFileDir = mainDir + @"\.session.txt";
 
-            using (StreamReader file = File.OpenText(sessionFile))
+            using (StreamReader file = File.OpenText(sessionFileDir))
             {
                 for (int i = 0; i < sessionData.Length; i++)
                     sessionData[i] = file.ReadLine();
@@ -33,7 +32,7 @@ namespace automaticMeet
 
         public void getCodeList(ComboBox comboBox)
         {
-            string codeDir = mainDir + @"\" + getSessionData()[0] + @"\codes";
+            string codeDir = mainDir + getSessionData()[0] + @"\codes\";
 
             if (Directory.Exists(codeDir))
             {

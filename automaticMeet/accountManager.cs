@@ -7,6 +7,7 @@ namespace automaticMeet
     public partial class accountManager : Form
     {
         publicFunctions publicFunctionsRef = new publicFunctions();
+        string sessionFileDir;
 
         public accountManager()
         {
@@ -15,13 +16,13 @@ namespace automaticMeet
 
         private void getUserListAndLoginData(string[] sessionData, ComboBox usersList, TextBox passwordText, CheckBox rememberMe)
         {
-            string[] foundDirectory = Directory.GetDirectories(publicFunctionsRef.mainDir + @"\");
+            string[] foundDirectory = Directory.GetDirectories(publicFunctionsRef.mainDir);
             usersList.Items.Clear();
 
             foreach (string directoryName in foundDirectory)
                 usersList.Items.Add(Path.GetFileName(directoryName));
 
-            if (Directory.Exists(publicFunctionsRef.mainDir + @"\" + sessionData[0]) && sessionData[2] == "True")
+            if (Directory.Exists(publicFunctionsRef.mainDir + sessionData[0]) && sessionData[2] == "True")
             {
                 usersList.Text = sessionData[0];
                 passwordText.Text = sessionData[1];
@@ -29,7 +30,7 @@ namespace automaticMeet
             }
             else
             {
-                File.Create(publicFunctionsRef.sessionFile).Close();
+                File.Create(sessionFileDir).Close();
                 usersList.Text = "";
                 passwordText.Text = "";
             }
@@ -40,8 +41,10 @@ namespace automaticMeet
             if (!Directory.Exists(publicFunctionsRef.mainDir))
                 Directory.CreateDirectory(publicFunctionsRef.mainDir);
 
-            if (!File.Exists(publicFunctionsRef.sessionFile))
-                File.Create(publicFunctionsRef.sessionFile).Close();
+            sessionFileDir = publicFunctionsRef.mainDir + @".session.txt"; ;
+
+            if (!File.Exists(sessionFileDir))
+                File.Create(sessionFileDir).Close();
 
             getUserListAndLoginData(publicFunctionsRef.getSessionData(), comboBox1, textBox1, checkBox1);
         }
@@ -64,7 +67,7 @@ namespace automaticMeet
         {
             if (comboBox1.Text != "" && textBox1.Text != "")
             {
-                string inputUsername = comboBox1.Text, inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, textBox1.Text), accountDir = publicFunctionsRef.mainDir + @"\" + inputUsername;
+                string inputUsername = comboBox1.Text, inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, textBox1.Text), accountDir = publicFunctionsRef.mainDir + inputUsername;
 
                 if (Directory.Exists(accountDir))
                 {
@@ -101,7 +104,7 @@ namespace automaticMeet
                     }
                 }
 
-                using (StreamWriter file = File.CreateText(publicFunctionsRef.sessionFile))
+                using (StreamWriter file = File.CreateText(sessionFileDir))
                 {
                     file.WriteLine(inputUsername);
                     file.WriteLine(inputPassword);
@@ -127,7 +130,7 @@ namespace automaticMeet
         {
             if (comboBox1.Text != "" && textBox1.Text != "")
             {
-                string inputUsername = comboBox1.Text, inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, textBox1.Text), accountDir = publicFunctionsRef.mainDir + @"\" + inputUsername;
+                string inputUsername = comboBox1.Text, inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, textBox1.Text), accountDir = publicFunctionsRef.mainDir + inputUsername;
 
                 if (Directory.Exists(accountDir))
                 {
@@ -137,7 +140,7 @@ namespace automaticMeet
                         {
                             file.Close();
                             Directory.Delete(accountDir, true);
-                            File.Create(publicFunctionsRef.sessionFile).Close();
+                            File.Create(sessionFileDir).Close();
 
                             getUserListAndLoginData(publicFunctionsRef.getSessionData(), comboBox1, textBox1, checkBox1);
                             MessageBox.Show("Eliminato con successo!");
