@@ -67,11 +67,11 @@ namespace automaticMeet
         {
             if (comboBox1.Text != "" && textBox1.Text != "")
             {
-                string inputUsername = comboBox1.Text, inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, textBox1.Text), accountDir = publicFunctionsRef.mainDir + inputUsername;
+                string inputUsername = comboBox1.Text, inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, textBox1.Text);
 
-                if (Directory.Exists(accountDir))
+                if (Directory.Exists(publicFunctionsRef.mainDir + inputUsername))
                 {
-                    using (StreamReader file = File.OpenText(accountDir + @"\password.txt"))
+                    using (StreamReader file = File.OpenText(publicFunctionsRef.mainDir + inputUsername + @"\password.txt"))
                     {
                         if (inputPassword != file.ReadLine())
                         {
@@ -83,13 +83,13 @@ namespace automaticMeet
                             file.Close();
                     }
                 }
-                else if (!Directory.Exists(accountDir))
+                else if (!Directory.Exists(publicFunctionsRef.mainDir + inputUsername))
                 {
                     if (inputUsername.IndexOf('@') != -1 && inputUsername.IndexOf('.') != -1 && inputUsername.IndexOf(' ') == -1)
                     {
-                        Directory.CreateDirectory(accountDir);
+                        Directory.CreateDirectory(publicFunctionsRef.mainDir + inputUsername);
 
-                        using (StreamWriter file = File.CreateText(accountDir + @"\password.txt"))
+                        using (StreamWriter file = File.CreateText(publicFunctionsRef.mainDir + inputUsername + @"\password.txt"))
                         {
                             file.WriteLine(inputPassword);
                             file.Close();
@@ -130,16 +130,16 @@ namespace automaticMeet
         {
             if (comboBox1.Text != "" && textBox1.Text != "")
             {
-                string inputUsername = comboBox1.Text, inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, textBox1.Text), accountDir = publicFunctionsRef.mainDir + inputUsername;
+                string inputUsername = comboBox1.Text, inputPassword = publicFunctionsRef.EncryptString(publicFunctionsRef.encryptionKey, textBox1.Text);
 
-                if (Directory.Exists(accountDir))
+                if (Directory.Exists(publicFunctionsRef.mainDir + inputUsername))
                 {
-                    using (StreamReader file = File.OpenText(accountDir + @"\password.txt"))
+                    using (StreamReader file = File.OpenText(publicFunctionsRef.mainDir + inputUsername + @"\password.txt"))
                     {
                         if (inputPassword == file.ReadLine())
                         {
                             file.Close();
-                            Directory.Delete(accountDir, true);
+                            Directory.Delete(publicFunctionsRef.mainDir + inputUsername, true);
                             File.Create(sessionFileDir).Close();
 
                             getUserListAndLoginData(publicFunctionsRef.getSessionData(), comboBox1, textBox1, checkBox1);

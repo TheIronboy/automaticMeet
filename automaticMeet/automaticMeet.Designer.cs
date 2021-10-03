@@ -44,7 +44,9 @@ namespace automaticMeet
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gestisciCodiciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.programmaMessaggiOrariToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestisciCodiciToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestisciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.programmaRiunioniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.killChromeDriverexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.creditiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -235,7 +237,6 @@ namespace automaticMeet
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestisciCodiciToolStripMenuItem,
-            this.programmaMessaggiOrariToolStripMenuItem,
             this.killChromeDriverexeToolStripMenuItem,
             this.creditiToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 293);
@@ -248,17 +249,34 @@ namespace automaticMeet
             // 
             // gestisciCodiciToolStripMenuItem
             // 
+            this.gestisciCodiciToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestisciCodiciToolStripMenuItem1,
+            this.gestisciToolStripMenuItem,
+            this.programmaRiunioniToolStripMenuItem});
             this.gestisciCodiciToolStripMenuItem.Name = "gestisciCodiciToolStripMenuItem";
-            this.gestisciCodiciToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
-            this.gestisciCodiciToolStripMenuItem.Text = "Gestisci Codici";
-            this.gestisciCodiciToolStripMenuItem.Click += new System.EventHandler(this.gestisciCodiciToolStripMenuItem_Click);
+            this.gestisciCodiciToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.gestisciCodiciToolStripMenuItem.Text = "Gestione";
             // 
-            // programmaMessaggiOrariToolStripMenuItem
+            // gestisciCodiciToolStripMenuItem1
             // 
-            this.programmaMessaggiOrariToolStripMenuItem.Name = "programmaMessaggiOrariToolStripMenuItem";
-            this.programmaMessaggiOrariToolStripMenuItem.Size = new System.Drawing.Size(190, 20);
-            this.programmaMessaggiOrariToolStripMenuItem.Text = "Programma Riunioni / Messaggi";
-            this.programmaMessaggiOrariToolStripMenuItem.Click += new System.EventHandler(this.programmaMessaggiOrariToolStripMenuItem_Click);
+            this.gestisciCodiciToolStripMenuItem1.Name = "gestisciCodiciToolStripMenuItem1";
+            this.gestisciCodiciToolStripMenuItem1.Size = new System.Drawing.Size(184, 22);
+            this.gestisciCodiciToolStripMenuItem1.Text = "Gestisci Codici";
+            this.gestisciCodiciToolStripMenuItem1.Click += new System.EventHandler(this.gestisciCodiciToolStripMenuItem1_Click);
+            // 
+            // gestisciToolStripMenuItem
+            // 
+            this.gestisciToolStripMenuItem.Name = "gestisciToolStripMenuItem";
+            this.gestisciToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.gestisciToolStripMenuItem.Text = "Gestisci Calibrator";
+            this.gestisciToolStripMenuItem.Click += new System.EventHandler(this.gestisciCalibratorToolStripMenuItem_Click);
+            // 
+            // programmaRiunioniToolStripMenuItem
+            // 
+            this.programmaRiunioniToolStripMenuItem.Name = "programmaRiunioniToolStripMenuItem";
+            this.programmaRiunioniToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.programmaRiunioniToolStripMenuItem.Text = "Programma Riunioni";
+            this.programmaRiunioniToolStripMenuItem.Click += new System.EventHandler(this.programmaRiunioniToolStripMenuItem_Click);
             // 
             // killChromeDriverexeToolStripMenuItem
             // 
@@ -437,7 +455,6 @@ namespace automaticMeet
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ToolStripMenuItem programmaMessaggiOrariToolStripMenuItem;
         private System.Windows.Forms.ProgressBar progressBar1;
         public System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.ComboBox comboBox1;
@@ -445,6 +462,9 @@ namespace automaticMeet
         private System.Windows.Forms.CheckBox checkBox1;
         public System.Windows.Forms.DomainUpDown domainUpDown1;
         private System.Windows.Forms.ToolStripMenuItem killChromeDriverexeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestisciCodiciToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem gestisciToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem programmaRiunioniToolStripMenuItem;
     }
 }
 

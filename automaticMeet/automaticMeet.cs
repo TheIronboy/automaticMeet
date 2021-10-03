@@ -1,6 +1,8 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -60,8 +62,7 @@ namespace automaticMeet
                 button1.Enabled = false;
                 button1.Text = "AUTOMATICO.";
 
-                gestisciCodiciToolStripMenuItem.Visible = false;
-                programmaMessaggiOrariToolStripMenuItem.Visible = false;
+                gestisciToolStripMenuItem.Visible = false;
                 killChromeDriverexeToolStripMenuItem.Text = "Ferma Automazione";
             }
             else if (isAutomated && modeToSet == false)
@@ -78,7 +79,7 @@ namespace automaticMeet
             }
         }
 
-        private void loadAutomaticMeetSettings(ComboBox codeText, DomainUpDown hourText, NumericUpDown[] numericUpDowns, CheckBox[] checkBoxes, RadioButton[] radioButtons, TextBox message)
+        private void loadAutomaticMeetSettings(ComboBox codeText, DomainUpDown hourText, NumericUpDown[] varioNumeric, CheckBox[] varioCheck, RadioButton[] speedSettings, TextBox message)
         {
             string[] settingsData = new string[13];
 
@@ -96,13 +97,13 @@ namespace automaticMeet
             hourText.Text = settingsData[1];
 
             int cont = 2;
-            foreach (NumericUpDown numericUpDown in numericUpDowns)
+            foreach (NumericUpDown numericUpDown in varioNumeric)
             {
                 numericUpDown.Value = Convert.ToInt32(settingsData[cont]);
                 cont++;
             }
 
-            foreach (CheckBox checkBox in checkBoxes)
+            foreach (CheckBox checkBox in varioCheck)
             {
                 checkBox.Checked = Convert.ToBoolean(settingsData[cont]);
                 cont++;
@@ -111,14 +112,14 @@ namespace automaticMeet
             message.Text = settingsData[9];
 
             cont = 10;
-            foreach (RadioButton radioButton in radioButtons)
+            foreach (RadioButton radioButton in speedSettings)
             {
                 radioButton.Checked = Convert.ToBoolean(settingsData[cont]);
                 cont++;
             }
         }
 
-        private void saveAutomaticMeetSettings(ComboBox codeText, DomainUpDown hourText, NumericUpDown[] numericUpDowns, CheckBox[] checkBoxes, RadioButton[] radioButtons, TextBox message)
+        private void saveAutomaticMeetSettings(ComboBox codeText, DomainUpDown hourText, NumericUpDown[] varioNumeric, CheckBox[] varioCheck, RadioButton[] speedSettings, TextBox message)
         {
             string[] settingsData = new string[13];
 
@@ -126,13 +127,13 @@ namespace automaticMeet
             settingsData[1] = hourText.Text;
 
             int cont = 2;
-            foreach (NumericUpDown numericUpDown in numericUpDowns)
+            foreach (NumericUpDown numericUpDown in varioNumeric)
             {
                 settingsData[cont] = numericUpDown.Value.ToString();
                 cont++;
             }
 
-            foreach (CheckBox checkBox in checkBoxes)
+            foreach (CheckBox checkBox in varioCheck)
             {
                 settingsData[cont] = checkBox.Checked.ToString();
                 cont++;
@@ -141,7 +142,7 @@ namespace automaticMeet
             settingsData[9] = message.Text;
 
             cont = 10;
-            foreach (RadioButton radioButton in radioButtons)
+            foreach (RadioButton radioButton in speedSettings)
             {
                 settingsData[cont] = radioButton.Checked.ToString();
                 cont++;
@@ -156,7 +157,7 @@ namespace automaticMeet
             }
         }
 
-        public async void mainConnect(string[] sessionData, string selectedCode, int speed, string messaggio, CheckBox[] checkBoxes, NumericUpDown[] numericUpDowns)
+        public async void mainConnect(string[] sessionData, string codeText, int speedSettings, string message, CheckBox[] varioCheck, NumericUpDown[] varioNumeric)
         {
             progressBar1.Maximum = 3;
 
@@ -175,12 +176,12 @@ namespace automaticMeet
                 progressBar1.Increment(1);
 
                 chrome.FindElement(By.Id("identifierId")).SendKeys(sessionData[0] + OpenQA.Selenium.Keys.Enter);
-                await Task.Delay(4000 * speed);
+                await Task.Delay(4000 * speedSettings);
 
                 progressBar1.Increment(1);
 
                 chrome.FindElement(By.Name("password")).SendKeys(sessionData[1] + OpenQA.Selenium.Keys.Enter);
-                await Task.Delay(4000 * speed);
+                await Task.Delay(4000 * speedSettings);
 
                 progressBar1.Increment(1);
             }
@@ -219,41 +220,41 @@ namespace automaticMeet
                     progressBar1.Value = 0;
                     progressBar1.Maximum = 7;
 
-                    chrome.FindElement(By.Id("i3")).SendKeys(selectedCode + OpenQA.Selenium.Keys.Enter);
-                    await Task.Delay(5000 * speed);
+                    chrome.FindElement(By.Id("i3")).SendKeys(codeText + OpenQA.Selenium.Keys.Enter);
+                    await Task.Delay(5000 * speedSettings);
 
                     progressBar1.Increment(1);
 
-                    if (checkBoxes[3].Checked)
+                    if (varioCheck[3].Checked)
                     {
-                        if (checkBoxes[1].Checked)
+                        if (varioCheck[1].Checked)
                         {
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[4]/div/div/div[1]/div[1]/div/div[4]/div[1]")).Click();
-                            await Task.Delay(1000 * speed);
+                            await Task.Delay(1000 * speedSettings);
                         }
 
                         progressBar1.Increment(1);
 
-                        if (checkBoxes[2].Checked)
+                        if (varioCheck[2].Checked)
                         {
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[4]/div/div/div[1]/div[1]/div/div[4]/div[2]")).Click();
-                            await Task.Delay(1000 * speed);
+                            await Task.Delay(1000 * speedSettings);
                         }
 
                         progressBar1.Increment(1);
 
                         chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[4]/div/div/div[2]/div/div[2]/div/div[1]/div[1]")).Click();
-                        await Task.Delay(5000 * speed);
+                        await Task.Delay(5000 * speedSettings);
 
                         progressBar1.Increment(1);
 
-                        if (checkBoxes[4].Checked)
+                        if (varioCheck[4].Checked)
                         {
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[10]/div[3]/div[2]/div/div/div[3]/span/button")).Click();
-                            await Task.Delay(1000 * speed);
+                            await Task.Delay(1000 * speedSettings);
 
-                            chrome.FindElement(By.Name("chatTextInput")).SendKeys(messaggio + OpenQA.Selenium.Keys.Enter);
-                            await Task.Delay(1000 * speed);
+                            chrome.FindElement(By.Name("chatTextInput")).SendKeys(message + OpenQA.Selenium.Keys.Enter);
+                            await Task.Delay(1000 * speedSettings);
 
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[10]/div[3]/div[2]/div/div/div[3]/span/button")).Click();
                         }
@@ -274,7 +275,7 @@ namespace automaticMeet
 
                         while (true)
                         {
-                            int nPart = Convert.ToInt32(chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[10]/div[3]/div[2]/div/div/div[2]/div/div")).Text), quitAt = Convert.ToInt32(numericUpDowns[1].Value);
+                            int nPart = Convert.ToInt32(chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div[1]/div/div[9]/div[3]/div[10]/div[3]/div[2]/div/div/div[2]/div/div")).Text), quitAt = Convert.ToInt32(varioNumeric[1].Value);
 
                             if (nPart <= quitAt)
                             {
@@ -294,18 +295,18 @@ namespace automaticMeet
                     }
                     else
                     {
-                        if (checkBoxes[1].Checked)
+                        if (varioCheck[1].Checked)
                         {
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[4]/div/div/div[1]/div[1]/div/div[4]/div[1]")).Click();
-                            await Task.Delay(1000 * speed);
+                            await Task.Delay(1000 * speedSettings);
                         }
 
                         progressBar1.Increment(1);
 
-                        if (checkBoxes[2].Checked)
+                        if (varioCheck[2].Checked)
                         {
                             chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[4]/div/div/div[1]/div[1]/div/div[4]/div[2]")).Click();
-                            await Task.Delay(1000 * speed);
+                            await Task.Delay(1000 * speedSettings);
                         }
 
                         progressBar1.Increment(1);
@@ -322,7 +323,7 @@ namespace automaticMeet
                 }
                 catch (NoSuchElementException)
                 {
-                    int minuti = Convert.ToInt32(numericUpDowns[0].Value);
+                    int minuti = Convert.ToInt32(varioNumeric[0].Value);
 
                     progressBar1.Value = 0;
                     progressBar1.Maximum = minuti * 2;
@@ -354,6 +355,119 @@ namespace automaticMeet
                 setMode(isAutomated, true);
 
             return;
+        }
+
+        public async void mainCalibratorConnect(string codeText, string accountCode, string message, int coordX, int coordY, int colR, int colG, int colB, CheckBox[] varioCheck, NumericUpDown[] varioNumeric)
+        {
+            button1.Text = "STOP";
+
+            progressBar1.Value = 0;
+            progressBar1.Maximum = 10;
+
+            await Task.Delay(2000);
+            Process.Start("chrome");
+
+            progressBar1.Increment(1);
+            await Task.Delay(5000);
+
+            string url = "https://meet.google.com/landing?authuser=" + accountCode;
+
+            SendKeys.SendWait(url);
+            SendKeys.Send("{Enter}");
+
+            await Task.Delay(2000);
+
+            bool quit = false;
+
+            while (quit == false)
+            {
+                SendKeys.Send("^+r");
+
+                progressBar1.Increment(1);
+                await Task.Delay(5000);
+
+                SendKeys.SendWait(codeText);
+                SendKeys.Send("{Enter}");
+
+                progressBar1.Increment(1);
+                await Task.Delay(5000);
+
+                Color colorFound = publicFunctionsRef.GetColorAt(coordX, coordY);
+
+                if (colorFound.R == colR && colorFound.G == colG && colorFound.B == colB)
+                {
+                    if (varioCheck[0].Checked)
+                    {
+                        SendKeys.Send("^e");
+
+                        progressBar1.Increment(1);
+                        await Task.Delay(1000);
+                    }
+                    else
+                        progressBar1.Increment(1);
+
+                    if (varioCheck[1].Checked)
+                    {
+                        SendKeys.Send("^d");
+
+                        progressBar1.Increment(1);
+                        await Task.Delay(1000);
+                    }
+                    else
+                        progressBar1.Increment(1);
+
+                    if (varioCheck[2].Checked)
+                    {
+                        publicFunctionsRef.LeftMouseClick(coordX, coordY, false);
+
+                        progressBar1.Increment(1);
+                        await Task.Delay(5000);
+                    }
+                    else
+                        progressBar1.Increment(1);
+
+                    if (varioCheck[3].Checked)
+                    {
+                        SendKeys.Send("^%c");
+
+                        progressBar1.Increment(1);
+                        await Task.Delay(2000);
+
+                        SendKeys.SendWait(message);
+                        SendKeys.Send("{Enter}");
+
+                        progressBar1.Increment(1);
+                        await Task.Delay(2000);
+
+                        SendKeys.Send("^%c");
+
+                        progressBar1.Increment(1);
+                        await Task.Delay(2000);
+                    }
+                    else
+                        progressBar1.Increment(3);
+
+                    quit = true;
+                    button1.Text = "Riavvia";
+                    progressBar1.Increment(1);
+                }
+                else
+                {
+                    int minuti = Convert.ToInt32(varioNumeric[0].Value);
+
+                    progressBar1.Value = 0;
+                    progressBar1.Maximum = minuti * 2;
+
+                    for (int timer = 1; timer <= minuti * 2; timer++)
+                    {
+                        await Task.Delay(30000);
+                        progressBar1.Increment(1);
+
+                    }
+                }
+            }
+
+            MessageBox.Show("Connesso!");
         }
 
         private void automaticMeet_Load(object sender, EventArgs e)
@@ -431,6 +545,8 @@ namespace automaticMeet
                 saveAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
 
             mainConnect(publicFunctionsRef.getSessionData(), selectedCode, speed, messaggio, checkBoxes, numericUpDowns);
+
+            //mainCalibratorConnect.
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -445,7 +561,7 @@ namespace automaticMeet
                 textBox1.Enabled = checkBox5.Checked;
         }
 
-        private void gestisciCodiciToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gestisciCodiciToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             saveAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
 
@@ -456,7 +572,18 @@ namespace automaticMeet
             loadAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
         }
 
-        private void programmaMessaggiOrariToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gestisciCalibratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
+
+            calibrator calibratorRef = new calibrator();
+            calibratorRef.ShowDialog();
+
+            publicFunctionsRef.getCodeList(comboBox1);
+            loadAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
+        }
+
+        private void programmaRiunioniToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
             this.Hide();

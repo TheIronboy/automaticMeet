@@ -32,21 +32,21 @@ namespace automaticMeet
             textBoxes = new TextBox[10] { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9, textBox10 };
         }
 
-        private void setAutomationsStatus(CheckBox enabledcheckBox, CheckBox addStringCheckBoxes, NumericUpDown hour, NumericUpDown minute, ComboBox codeText, DomainUpDown stringToAdd, TextBox messages)
+        private void setAutomationsStatus(CheckBox enabledcheckBox, CheckBox addStringCheckBoxes, NumericUpDown numericUpDownsHours, NumericUpDown numericUpDownsMinutes, ComboBox codeList, DomainUpDown stringToAdd, TextBox message)
         {
             addStringCheckBoxes.Enabled = enabledcheckBox.Checked;
 
-            hour.Enabled = enabledcheckBox.Checked;
-            minute.Enabled = enabledcheckBox.Checked;
+            numericUpDownsHours.Enabled = enabledcheckBox.Checked;
+            numericUpDownsMinutes.Enabled = enabledcheckBox.Checked;
 
-            codeText.Enabled = enabledcheckBox.Checked;
+            codeList.Enabled = enabledcheckBox.Checked;
 
             if (enabledcheckBox.Checked && addStringCheckBoxes.Checked)
                 stringToAdd.Enabled = true;
             else
                 stringToAdd.Enabled = false;
 
-            messages.Enabled = enabledcheckBox.Checked;
+            message.Enabled = enabledcheckBox.Checked;
         }
 
         private string hourAndMinutesExtractor(int type, string value)
@@ -82,7 +82,7 @@ namespace automaticMeet
             return result;
         }
 
-        private void loadAutomationsSettings(CheckBox[] enabledCheckBoxes, CheckBox[] addStringCheckBoxes, NumericUpDown[] numericUpDownsHours, NumericUpDown[] numericUpDownsMinutes, ComboBox[] comboBoxes, DomainUpDown[] stringToAdd, TextBox[] textBoxes)
+        private void loadAutomationsSettings(CheckBox[] enabledCheckBoxes, CheckBox[] addStringCheckBoxes, NumericUpDown[] numericUpDownsHours, NumericUpDown[] numericUpDownsMinutes, ComboBox[] codeList, DomainUpDown[] stringToAdd, TextBox[] message)
         {
             string[,] settingsData = new string[10, 6];
 
@@ -101,13 +101,13 @@ namespace automaticMeet
                 addStringCheckBoxes[i].Checked = Convert.ToBoolean(settingsData[i, 1]);
                 numericUpDownsHours[i].Value = Convert.ToInt32(hourAndMinutesExtractor(0, settingsData[i, 2]));
                 numericUpDownsMinutes[i].Value = Convert.ToInt32(hourAndMinutesExtractor(1, settingsData[i, 2]));
-                comboBoxes[i].Text = settingsData[i, 3];
+                codeList[i].Text = settingsData[i, 3];
                 stringToAdd[i].Text = settingsData[i, 4];
-                textBoxes[i].Text = settingsData[i, 5];
+                message[i].Text = settingsData[i, 5];
             }
         }
 
-        private void saveAutomationsSettings(CheckBox[] enabledCheckBoxes, CheckBox[] addStringCheckBoxes, NumericUpDown[] numericUpDownsHours, NumericUpDown[] numericUpDownsMinutes, ComboBox[] comboBoxes, DomainUpDown[] stringToAdd, TextBox[] textBoxes)
+        private void saveAutomationsSettings(CheckBox[] enabledCheckBoxes, CheckBox[] addStringCheckBoxes, NumericUpDown[] numericUpDownsHours, NumericUpDown[] numericUpDownsMinutes, ComboBox[] codeList, DomainUpDown[] stringToAdd, TextBox[] message)
         {
             string[,] settingsData = new string[10, 6];
 
@@ -116,9 +116,9 @@ namespace automaticMeet
                 settingsData[i, 0] = enabledCheckBoxes[i].Checked.ToString();
                 settingsData[i, 1] = addStringCheckBoxes[i].Checked.ToString();
                 settingsData[i, 2] = numericUpDownsHours[i].Value.ToString() + ":" + numericUpDownsMinutes[i].Value.ToString();
-                settingsData[i, 3] = comboBoxes[i].Text;
+                settingsData[i, 3] = codeList[i].Text;
                 settingsData[i, 4] = stringToAdd[i].Text;
-                settingsData[i, 5] = textBoxes[i].Text;
+                settingsData[i, 5] = message[i].Text;
             }
 
             using (StreamWriter file = File.CreateText(automationsSettingsFile))

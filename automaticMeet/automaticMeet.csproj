@@ -75,6 +75,12 @@
     <Compile Include="automationManager.Designer.cs">
       <DependentUpon>automationManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="calibrator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="calibrator.Designer.cs">
+      <DependentUpon>calibrator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="publicFunctions.cs" />
@@ -83,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="automationManager.resx">
       <DependentUpon>automationManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="calibrator.resx">
+      <DependentUpon>calibrator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="codeManager.resx">
       <DependentUpon>codeManager.cs</DependentUpon>

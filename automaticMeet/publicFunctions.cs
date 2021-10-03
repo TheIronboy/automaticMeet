@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -11,12 +14,50 @@ namespace automaticMeet
         public string mainDir = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\automaticMeet\";
         public string encryptionKey = "705ea6d9231f38e4484fcf8be5a1aa5d";
 
+        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
+        static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
+
+        [DllImport("user32.dll")]
+        static extern bool SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")]
+        static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+        Bitmap screenPixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
+
+        public Color GetColorAt(int xpos, int ypos)
+        {
+            using (Graphics gdest = Graphics.FromImage(screenPixel))
+            {
+                using (Graphics gsrc = Graphics.FromHwnd(IntPtr.Zero))
+                {
+                    IntPtr hSrcDC = gsrc.GetHdc();
+                    IntPtr hDC = gdest.GetHdc();
+                    int retval = BitBlt(hDC, 0, 0, 1, 1, hSrcDC, xpos, ypos, (int)CopyPixelOperation.SourceCopy);
+                    gdest.ReleaseHdc();
+                    gsrc.ReleaseHdc();
+                }
+            }
+
+            return screenPixel.GetPixel(0, 0);
+        }
+
+        public void LeftMouseClick(int xpos, int ypos, bool onlySet)
+        {
+            SetCursorPos(xpos, ypos);
+
+            if (!onlySet)
+            {
+                mouse_event(0x02, xpos, ypos, 0, 0);
+                mouse_event(0x04, xpos, ypos, 0, 0);
+            }
+        }
+
         public string[] getSessionData()
         {
             string[] sessionData = new string[3];
-            string sessionFileDir = mainDir + @"\.session.txt";
 
-            using (StreamReader file = File.OpenText(sessionFileDir))
+            using (StreamReader file = File.OpenText(mainDir + @"\.session.txt"))
             {
                 for (int i = 0; i < sessionData.Length; i++)
                     sessionData[i] = file.ReadLine();
@@ -30,7 +71,7 @@ namespace automaticMeet
             return sessionData;
         }
 
-        public void getCodeList(ComboBox comboBox)
+        public void getCodeList(ComboBox codeList)
         {
             string codeDir = mainDir + getSessionData()[0] + @"\codes\";
 
@@ -38,10 +79,10 @@ namespace automaticMeet
             {
                 string[] fileEntries = Directory.GetFiles(codeDir);
 
-                comboBox.Items.Clear();
+                codeList.Items.Clear();
 
                 foreach (string fileName in fileEntries)
-                    comboBox.Items.Add(Path.GetFileName(fileName.Remove(fileName.Length - 4)));
+                    codeList.Items.Add(Path.GetFileName(fileName.Remove(fileName.Length - 4)));
             }
             else
                 Directory.CreateDirectory(codeDir);

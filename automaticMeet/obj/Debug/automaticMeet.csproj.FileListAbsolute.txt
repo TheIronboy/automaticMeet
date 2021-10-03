@@ -46,3 +46,4 @@ C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\GitHub Repos\automat
 C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\GitHub Repos\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csproj.CopyComplete
 C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\GitHub Repos\automaticMeet\automaticMeet\obj\Debug\automaticMeet.exe
 C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\GitHub Repos\automaticMeet\automaticMeet\obj\Debug\automaticMeet.pdb
+C:\Users\lucag\iCloudDrive\Documents\Visual Studio Projects\GitHub Repos\automaticMeet\automaticMeet\obj\Debug\automaticMeet.calibrator.resources
