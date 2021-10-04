@@ -124,12 +124,9 @@ namespace automaticMeet
                 MessageBox.Show("Clicca (TEST) prima di applicare.");
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-                MessageBox.Show("ATTENZIONE!" + Environment.NewLine +
-                    "Questa funzione rende più affidabile il programma, ma rende non disponibili alcune funzioni e ha bisogno di essere configuata correttamente." + Environment.NewLine +
-                    "(SPERIMANTALE) (Clicca applica per confermare).");
+            MessageBox.Show("Questa funzione rende più affidabile il programma, ma rende non disponibili alcune funzioni e ha bisogno di essere configuata correttamente. (SPERIMENTALE)");
         }
     }
 }

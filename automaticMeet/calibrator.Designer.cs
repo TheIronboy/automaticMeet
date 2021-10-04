@@ -223,7 +223,6 @@ namespace automaticMeet
             this.checkBox1.TabIndex = 21;
             this.checkBox1.Text = "Abilita Calibrator";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // numericUpDown1
             // 
@@ -265,6 +264,7 @@ namespace automaticMeet
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
             this.toolStripMenuItem1.Text = "Help";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // calibrator
             // 
