@@ -10,13 +10,12 @@ namespace automaticMeet
         publicFunctions publicFunctionsRef = new publicFunctions();
         string calibratorSettingsFile;
 
-        CheckBox[] checkBoxes;
         NumericUpDown[] numericUpDowns;
         TextBox[] textBoxes;
 
         private void loadCalibratorData(CheckBox enabled, NumericUpDown[] coords, TextBox[] color)
         {
-            string[] settingsData = new string[8];
+            string[] settingsData = new string[7];
 
             using (StreamReader file = File.OpenText(calibratorSettingsFile))
             {
@@ -28,21 +27,16 @@ namespace automaticMeet
                 file.Close();
             }
 
-            int cont = 0;
-            foreach (CheckBox checkBox in checkBoxes)
-            {
-                checkBox.Checked = Convert.ToBoolean(settingsData[cont]);
-                cont++;
-            }
+            enabled.Checked = Convert.ToBoolean(settingsData[0]);
 
-            cont = 2;
+            int cont = 1;
             foreach (NumericUpDown numericUpDown in coords)
             {
                 numericUpDown.Value = Convert.ToInt32(settingsData[cont]);
                 cont++;
             }
 
-            cont = 5;
+            cont = 4;
             foreach (TextBox textBox in color)
             {
                 textBox.Text = settingsData[cont];
@@ -52,23 +46,18 @@ namespace automaticMeet
 
         private void saveCalibratorData(CheckBox enabled, NumericUpDown[] coords, TextBox[] color)
         {
-            string[] settingsData = new string[8];
+            string[] settingsData = new string[7];
 
-            int cont = 0;
-            foreach (CheckBox checkBox in checkBoxes)
-            {
-                settingsData[cont] = checkBox.Checked.ToString();
-                cont++;
-            }
+            settingsData[0] = enabled.Checked.ToString();
 
-            cont = 2;
+            int cont = 1;
             foreach (NumericUpDown numericUpDown in coords)
             {
                 settingsData[cont] = numericUpDown.Value.ToString();
                 cont++;
             }
 
-            cont = 5;
+            cont = 4;
             foreach (TextBox textBox in color)
             {
                 settingsData[cont] = textBox.Text;
@@ -95,7 +84,6 @@ namespace automaticMeet
         {
             calibratorSettingsFile = publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"\calibratorSettings.txt";
 
-            checkBoxes = new CheckBox[2] { checkBox1, checkBox2 };
             numericUpDowns = new NumericUpDown[3] { numericUpDown1, numericUpDown2, numericUpDown3 };
             textBoxes = new TextBox[3] { textBox1, textBox2, textBox3 };
 

@@ -321,9 +321,7 @@ namespace automaticMeet
                         }
 
                         progressBar1.Increment(1);
-
                         chrome.FindElement(By.XPath("/html/body/div[1]/c-wiz/div/div/div[9]/div[3]/div/div/div[4]/div/div/div[2]/div/div[2]/div/div[1]/div[1]"));
-
                         progressBar1.Increment(4);
 
                         MessageBox.Show("Riunione iniziata, trovata in " + count + " tentativi, ATTENZIONE:" + Environment.NewLine +
@@ -368,10 +366,8 @@ namespace automaticMeet
             return;
         }
 
-        public async void mainCalibratorConnect(string codeText, string accountCode, string message, int coordX, int coordY, int colR, int colG, int colB, CheckBox[] varioCheck, NumericUpDown[] varioNumeric)
+        public async void mainCalibratorConnect(string codeText, bool isAccountLimited, string accountCode, string message, int coordX, int coordY, int colR, int colG, int colB, CheckBox[] varioCheck, NumericUpDown[] varioNumeric)
         {
-            button1.Text = "STOP";
-
             progressBar1.Value = 0;
             progressBar1.Maximum = 10;
 
@@ -396,6 +392,9 @@ namespace automaticMeet
 
                 progressBar1.Increment(1);
                 await Task.Delay(5000);
+
+                if (isAccountLimited)
+                    SendKeys.Send("{TAB}");
 
                 SendKeys.SendWait(codeText);
                 SendKeys.Send("{Enter}");
@@ -459,7 +458,6 @@ namespace automaticMeet
                         progressBar1.Increment(3);
 
                     quit = true;
-                    button1.Text = "Riavvia";
                     progressBar1.Increment(1);
                 }
                 else
@@ -477,7 +475,11 @@ namespace automaticMeet
                 }
             }
 
-            MessageBox.Show("Riunione iniziata, connesso con successo!");
+            if (!isAutomated)
+            {
+                MessageBox.Show("Riunione iniziata, connesso con successo!");
+                setMode(isAutomated, true);
+            }
         }
 
         private void automaticMeet_Load(object sender, EventArgs e)
@@ -549,10 +551,10 @@ namespace automaticMeet
                 return;
             }
 
-            string[] calibratorSettings = new string[7];
+            string[] calibratorSettings = new string[8];
             loadCalibratorData(calibratorSettings);
 
-            if (calibratorSettings[1] == "0" && calibratorSettings[2] == "0")
+            if (calibratorSettings[3] == "0" && calibratorSettings[4] == "0")
             {
                 MessageBox.Show("Hai (Calibrator) attivato, ma non configurato, configuralo in Gestione > Gestisci Calibrator");
                 return;
@@ -566,7 +568,15 @@ namespace automaticMeet
             if (!Convert.ToBoolean(calibratorSettings[0]))
                 mainConnect(publicFunctionsRef.getSessionData(), selectedCode, speed, messaggio, checkBoxes, numericUpDowns);
             else
-                mainCalibratorConnect(selectedCode, calibratorSettings[1], messaggio, Convert.ToInt32(calibratorSettings[2]), Convert.ToInt32(calibratorSettings[3]), Convert.ToInt32(calibratorSettings[4]), Convert.ToInt32(calibratorSettings[5]), Convert.ToInt32(calibratorSettings[6]), checkBoxes, numericUpDowns);
+            {
+                bool isAccountLimited = Convert.ToBoolean(calibratorSettings[1]);
+                string accountCode = calibratorSettings[2];
+
+                int coordX = Convert.ToInt32(calibratorSettings[3]), coordY = Convert.ToInt32(calibratorSettings[4]);
+                int colR = Convert.ToInt32(calibratorSettings[5]), colG = Convert.ToInt32(calibratorSettings[6]), colB = Convert.ToInt32(calibratorSettings[7]);
+
+                mainCalibratorConnect(selectedCode, isAccountLimited, accountCode, messaggio, coordX, coordY, colR, colG, colB, checkBoxes, numericUpDowns);
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
