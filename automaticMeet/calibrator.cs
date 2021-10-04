@@ -15,7 +15,7 @@ namespace automaticMeet
 
         private void loadCalibratorData(CheckBox enabled, NumericUpDown[] coords, TextBox[] color)
         {
-            string[] settingsData = new string[6];
+            string[] settingsData = new string[7];
 
             using (StreamReader file = File.OpenText(calibratorSettingsFile))
             {
@@ -36,7 +36,7 @@ namespace automaticMeet
                 cont++;
             }
 
-            cont = 3;
+            cont = 4;
             foreach (TextBox textBox in color)
             {
                 textBox.Text = settingsData[cont];
@@ -46,7 +46,7 @@ namespace automaticMeet
 
         private void saveCalibratorData(CheckBox enabled, NumericUpDown[] coords, TextBox[] color)
         {
-            string[] settingsData = new string[6];
+            string[] settingsData = new string[7];
 
             settingsData[0] = enabled.Checked.ToString();
 
@@ -57,7 +57,7 @@ namespace automaticMeet
                 cont++;
             }
 
-            cont = 3;
+            cont = 4;
             foreach (TextBox textBox in color)
             {
                 settingsData[cont] = textBox.Text;
@@ -84,7 +84,7 @@ namespace automaticMeet
         {
             calibratorSettingsFile = publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"\calibratorSettings.txt";
 
-            numericUpDowns = new NumericUpDown[2] { numericUpDown1, numericUpDown2 };
+            numericUpDowns = new NumericUpDown[3] { numericUpDown1, numericUpDown2, numericUpDown3 };
             textBoxes = new TextBox[3] { textBox1, textBox2, textBox3 };
 
             if (!File.Exists(calibratorSettingsFile))
@@ -95,9 +95,9 @@ namespace automaticMeet
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (numericUpDown1.Value != 0 && numericUpDown2.Value != 0)
+            if (numericUpDown2.Value != 0 && numericUpDown3.Value != 0)
             {
-                int coordX = Convert.ToInt32(numericUpDown1.Value), coordY = Convert.ToInt32(numericUpDown2.Value);
+                int coordX = Convert.ToInt32(numericUpDown2.Value), coordY = Convert.ToInt32(numericUpDown3.Value);
                 publicFunctionsRef.LeftMouseClick(coordX, coordY, true);
 
                 Color capturedColor = publicFunctionsRef.GetColorAt(coordX, coordY);
@@ -112,7 +112,7 @@ namespace automaticMeet
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (numericUpDown1.Value != 0 && numericUpDown2.Value != 0)
+            if (numericUpDown2.Value != 0 && numericUpDown3.Value != 0)
             {
                 saveCalibratorData(checkBox1, numericUpDowns, textBoxes);
                 loadCalibratorData(checkBox1, numericUpDowns, textBoxes);
@@ -126,7 +126,10 @@ namespace automaticMeet
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            saveCalibratorData(checkBox1, numericUpDowns, textBoxes);
+            if (checkBox1.Checked)
+                MessageBox.Show("ATTENZIONE!" + Environment.NewLine +
+                    "Questa funzione rende più affidabile il programma, ma rende non disponibili alcune funzioni e ha bisogno di essere configuata correttamente." + Environment.NewLine +
+                    "(SPERIMANTALE) (Clicca applica per confermare).");
         }
     }
 }

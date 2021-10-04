@@ -79,6 +79,17 @@ namespace automaticMeet
             }
         }
 
+        private void loadCalibratorData(string[] calibratorSettings)
+        {
+            using (StreamReader file = File.OpenText(publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"/calibratorSettings.txt"))
+            {
+                for (int i = 0; i < calibratorSettings.Length; i++)
+                {
+                    calibratorSettings[i] = file.ReadLine();
+                }
+            }
+        }
+
         private void loadAutomaticMeetSettings(ComboBox codeText, DomainUpDown hourText, NumericUpDown[] varioNumeric, CheckBox[] varioCheck, RadioButton[] speedSettings, TextBox message)
         {
             string[] settingsData = new string[13];
@@ -396,7 +407,7 @@ namespace automaticMeet
 
                 if (colorFound.R == colR && colorFound.G == colG && colorFound.B == colB)
                 {
-                    if (varioCheck[0].Checked)
+                    if (varioCheck[1].Checked)
                     {
                         SendKeys.Send("^e");
 
@@ -406,7 +417,7 @@ namespace automaticMeet
                     else
                         progressBar1.Increment(1);
 
-                    if (varioCheck[1].Checked)
+                    if (varioCheck[2].Checked)
                     {
                         SendKeys.Send("^d");
 
@@ -416,7 +427,7 @@ namespace automaticMeet
                     else
                         progressBar1.Increment(1);
 
-                    if (varioCheck[2].Checked)
+                    if (varioCheck[3].Checked)
                     {
                         publicFunctionsRef.LeftMouseClick(coordX, coordY, false);
 
@@ -426,7 +437,7 @@ namespace automaticMeet
                     else
                         progressBar1.Increment(1);
 
-                    if (varioCheck[3].Checked)
+                    if (varioCheck[4].Checked)
                     {
                         SendKeys.Send("^%c");
 
@@ -462,12 +473,11 @@ namespace automaticMeet
                     {
                         await Task.Delay(30000);
                         progressBar1.Increment(1);
-
                     }
                 }
             }
 
-            MessageBox.Show("Connesso!");
+            MessageBox.Show("Riunione iniziata, connesso con successo!");
         }
 
         private void automaticMeet_Load(object sender, EventArgs e)
@@ -539,14 +549,24 @@ namespace automaticMeet
                 return;
             }
 
+            string[] calibratorSettings = new string[7];
+            loadCalibratorData(calibratorSettings);
+
+            if (calibratorSettings[1] == "0" && calibratorSettings[2] == "0")
+            {
+                MessageBox.Show("Hai (Calibrator) attivato, ma non configurato, configuralo in Gestione > Gestisci Calibrator");
+                return;
+            }
+
             setMode(isAutomated, false);
 
             if (!isAutomated)
                 saveAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
 
-            mainConnect(publicFunctionsRef.getSessionData(), selectedCode, speed, messaggio, checkBoxes, numericUpDowns);
-
-            //mainCalibratorConnect.
+            if (!Convert.ToBoolean(calibratorSettings[0]))
+                mainConnect(publicFunctionsRef.getSessionData(), selectedCode, speed, messaggio, checkBoxes, numericUpDowns);
+            else
+                mainCalibratorConnect(selectedCode, calibratorSettings[1], messaggio, Convert.ToInt32(calibratorSettings[2]), Convert.ToInt32(calibratorSettings[3]), Convert.ToInt32(calibratorSettings[4]), Convert.ToInt32(calibratorSettings[5]), Convert.ToInt32(calibratorSettings[6]), checkBoxes, numericUpDowns);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
