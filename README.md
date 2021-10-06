@@ -9,3 +9,4 @@ Questo programma permette di automatizzare riunioni Google Meet, tenta la connes
 - Regolazione velocità di azione.
 - Supporto per più codici.
 - Programmazione Riunioni e Messaggi per orari.
+- Calibrator Mode (permette l'utilizzo del programma per account non supportati.)
