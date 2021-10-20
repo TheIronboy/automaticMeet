@@ -51,7 +51,6 @@ C:\Users\giord\Source\Repos\TheIronboy\automaticMeet\automaticMeet\bin\Debug\aut
 C:\Users\giord\Source\Repos\TheIronboy\automaticMeet\automaticMeet\bin\Debug\automaticMeet.exe
 C:\Users\giord\Source\Repos\TheIronboy\automaticMeet\automaticMeet\bin\Debug\automaticMeet.pdb
 C:\Users\giord\Source\Repos\TheIronboy\automaticMeet\automaticMeet\bin\Debug\WebDriver.dll
-C:\Users\giord\Source\Repos\TheIronboy\automaticMeet\automaticMeet\bin\Debug\WebDriver.xml
 C:\Users\giord\Source\Repos\TheIronboy\automaticMeet\automaticMeet\obj\Debug\automaticMeet.csproj.AssemblyReference.cache
 C:\Users\giord\Source\Repos\TheIronboy\automaticMeet\automaticMeet\obj\Debug\automaticMeet.automaticMeet.resources
 C:\Users\giord\Source\Repos\TheIronboy\automaticMeet\automaticMeet\obj\Debug\automaticMeet.automationManager.resources

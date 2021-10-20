@@ -79,17 +79,6 @@ namespace automaticMeet
             }
         }
 
-        private void loadCalibratorData(string[] calibratorSettings)
-        {
-            using (StreamReader file = File.OpenText(publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"/calibratorSettings.txt"))
-            {
-                for (int i = 0; i < calibratorSettings.Length; i++)
-                {
-                    calibratorSettings[i] = file.ReadLine();
-                }
-            }
-        }
-
         private void loadAutomaticMeetSettings(ComboBox codeText, DomainUpDown hourText, NumericUpDown[] varioNumeric, CheckBox[] varioCheck, RadioButton[] speedSettings, TextBox message)
         {
             string[] settingsData = new string[13];
@@ -366,6 +355,20 @@ namespace automaticMeet
             return;
         }
 
+        private void loadCalibratorData(string[] calibratorSettings)
+        {
+            if (File.Exists(publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"/calibratorSettings.txt"))
+            {
+                using (StreamReader file = File.OpenText(publicFunctionsRef.mainDir + publicFunctionsRef.getSessionData()[0] + @"/calibratorSettings.txt"))
+                {
+                    for (int i = 0; i < calibratorSettings.Length; i++)
+                    {
+                        calibratorSettings[i] = file.ReadLine();
+                    }
+                }
+            }
+        }
+
         public async void mainCalibratorConnect(string codeText, bool isAccountLimited, string accountCode, string message, int coordX, int coordY, int colR, int colG, int colB, CheckBox[] varioCheck, NumericUpDown[] varioNumeric)
         {
             progressBar1.Value = 0;
@@ -551,19 +554,13 @@ namespace automaticMeet
                 return;
             }
 
-            string[] calibratorSettings = new string[8];
-            loadCalibratorData(calibratorSettings);
-
-            if (calibratorSettings[3] == "0" && calibratorSettings[4] == "0")
-            {
-                MessageBox.Show("Hai (Calibrator) attivato, ma non configurato, configuralo in Gestione > Gestisci Calibrator");
-                return;
-            }
-
             setMode(isAutomated, false);
 
             if (!isAutomated)
                 saveAutomaticMeetSettings(comboBox1, domainUpDown1, numericUpDowns, checkBoxes, radioButtons, textBox1);
+
+            string[] calibratorSettings = new string[8];
+            loadCalibratorData(calibratorSettings);
 
             if (!Convert.ToBoolean(calibratorSettings[0]))
                 mainConnect(publicFunctionsRef.getSessionData(), selectedCode, speed, messaggio, checkBoxes, numericUpDowns);
